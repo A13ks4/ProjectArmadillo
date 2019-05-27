@@ -17,8 +17,8 @@ class CreatePlanUserTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned()->index();
             $table->integer('plan_id')->unsigned()->index();
-            $table->string('destination');
-            $table->text('description');
+            $table->string('destination')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

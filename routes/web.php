@@ -54,10 +54,10 @@ Route::get('/plan', function(){
 
 Route::get('/user', function(){
 
-    $u = App\User::findOrFail(1);
+    $u = App\Plan::findOrFail(1);
 
     //return $u->plan;//za city id =1 uzimam sve ulice
-    foreach($u->plans as $city){
+    foreach($u->users as $city){
         echo $city;
         }
 
