@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Update Plan</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,10 +13,13 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    
-                    <a href="/plan">plan</a>|<a href="/city">city</a>|<a href="/street">street</a>|<a href="/vehicle">vehicle</a><br>
-                    
-                    You are logged in!
+                    <div>
+                        <span>Plans go here</span>
+                       
+                       <input class="input" value="{{$plan->id}}">
+                           
+                            
+                    </div>
                    
                 </div>
             </div>

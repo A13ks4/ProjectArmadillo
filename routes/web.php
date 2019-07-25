@@ -21,10 +21,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/plan', 'PlanController');
+Route::resource('/city', 'CityController');
+Route::resource('/street', 'StreetController');
+Route::resource('/vehicle', 'VehicleController');
 
-
+ 
 //      ISPROBAVANJE VEZA
-
+/*
 Route::get('/city', function(){
 
     $street = Street::findOrFail(2);
@@ -42,15 +46,15 @@ Route::get('/car', function(){
     
 });
 
-Route::get('/plan', function(){
+Route::get('/plans', function(){
 
     $p = Plan::findOrFail(1);
 
-    return $p->driver;
+   // return $p->driver;
     $c = App\Vehicle::findOrFail(1);
     foreach($c->plans as $plan)
     echo $plan;
-});
+})->middleware('admin');
 
 Route::get('/user', function(){
 
@@ -61,4 +65,4 @@ Route::get('/user', function(){
         echo $city;
         }
 
-});
+});*/

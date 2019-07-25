@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Edit City</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,11 +13,17 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <div>
+                    <form action="/city" method="POST">
+                    @csrf
                     
-                    <a href="/plan">plan</a>|<a href="/city">city</a>|<a href="/street">street</a>|<a href="/vehicle">vehicle</a><br>
-                    
-                    You are logged in!
-                   
+                        <span>City Name:</span>
+                       
+                       <input type="text" class="form-control" name="cityName" ><br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    </div>
+                  
                 </div>
             </div>
         </div>
