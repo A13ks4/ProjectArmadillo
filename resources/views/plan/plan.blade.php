@@ -24,15 +24,34 @@
                     <div>
                         <span>Plans go here</span>
                         <br>
+                        
+                        <form action="/search" method="GET">
+                        @csrf
+                            <select name="city_from" id="">
+                           <?php $cities = App\City::all();?>
+                            @foreach ($cities as $city)
+                                <option value="{{$city->id}}">{{$city->name}}</option>
+                            @endforeach
+                            </select>
+                            <select name="city_to" id="">
+                           <?php $cities = App\City::all();?>
+                            @foreach ($cities as $city)
+                                <option value="{{$city->id}}">{{$city->name}}</option>
+                            @endforeach
+                            </select>
+                            <button class="btn" type="submit">Search</button>
+                        </form>
+
                         @can('create', App\Plan::class)<a href="/plan/create" class="btn btn-primary">+</a>@endcan
                         <br>
                         <table class="table table-striped table-hover"> 
-                        <tr><td>City from:</td><td>City to:</td><td>Vehicle:</td><td>Time start:</td><td>Time end:</td></tr>
+                        <tr><td>City from:</td><td>City to:</td><td>Vehicle:</td><td>Driver:</td><td>Time start:</td><td>Time end:</td></tr>
                         @foreach ($plans as $plan)
                            
                             <tr><td>{{ $plan->city_from->name }}</td>
                             <td>{{ $plan->city_to->name }}</td>
-                            <td>{{ $plan->vehicle->brand }}</td>
+                            <td>{{ $plan->schedule->vehicle->brand }}</td>
+                            <td>{{ $plan->schedule->driver->firstname }}</td>
                             <td>{{ $plan->time_start }}</td>
                             <td>{{ $plan->time_end }}</td>
                             @can('update',$plan)

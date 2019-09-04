@@ -17,7 +17,9 @@ class Plan extends Model
     public function vehicle(){
         return $this->belongsTo('App\Vehicle');
     }
-    
+    public function schedule(){
+        return $this->belongsTo('App\Schedule');
+    }
 
     public function reservations(){
         return $this->belongsToMany('App\Reservation');

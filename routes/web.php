@@ -21,6 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/search', 'PlanController@search');
 Route::resource('/plan', 'PlanController');
 Route::resource('/city', 'CityController');
 Route::resource('/street', 'StreetController');

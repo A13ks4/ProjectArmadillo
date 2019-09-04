@@ -21,8 +21,7 @@ class CreatePlansTable extends Migration
             $table->integer('price');
             $table->integer('city_id_from')->unsigned()->index();
             $table->integer('city_id_to')->unsigned()->index();
-            $table->integer('vehicle_id')->unsigned()->index();
-            $table->integer('driver_id')->unsigned()->index();
+            $table->integer('schedule_id')->unsigned()->index();
             $table->timestamps();
         });
     }

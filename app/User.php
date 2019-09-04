@@ -44,6 +44,9 @@ class User extends Authenticatable
     public function plans(){
         return $this->belongsToMany('App\Plan');
     }
+    public function schedule(){
+        return $this->hasMany('App\Schedule');
+    }
 
     public function isAdmin(){
         return $this->level == 3;// Number 3 is admin, driver would be 2 and end user would be 1
