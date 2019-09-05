@@ -25,6 +25,11 @@ class PlanController extends Controller
 
         return view('plan/plan',compact('plans'));
     }
+    /**
+     * Display search results.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request){
         $plans = Plan::all()->where("city_id_from",$request->city_from)->where("city_id_to",$request->city_to);
         return view('plan/plan',compact('plans'));
@@ -49,7 +54,25 @@ class PlanController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $data = $request->validate([
+            'city_id_from' => 'required',
+            'city_id_to' => 'required',
+            'schedule' => 'required',
+            'date' => 'required',
+            'time_start' => 'required',
+            'time_end' => 'required',
+            'price' => 'required',
+        ]);
+        $plan = new Plan;
+        $plan->city_id_from = $data['city_id_from'];
+        $plan->city_id_to = $data['city_id_to'];
+        $plan->schedule = $data['schedule'];
+        $plan->date = $data['date'];
+        $plan->time_start = $data['time_start'];
+        $plan->time_end = $data['time_end'];
+        $plan->price = $data['price'];
+        $plan->save();
+        return redirect('plan');
     }
 
     /**
@@ -86,7 +109,25 @@ class PlanController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+        $data = $request->validate([
+            'city_id_from' => 'required',
+            'city_id_to' => 'required',
+            'schedule' => 'required',
+            'date' => 'required',
+            'time_start' => 'required',
+            'time_end' => 'required',
+            'price' => 'required',
+        ]);
+        $plan = Plan::findOrFail($id);
+        $plan->city_id_from = $data['city_id_from'];
+        $plan->city_id_to = $data['city_id_to'];
+        $plan->schedule = $data['schedule'];
+        $plan->date = $data['date'];
+        $plan->time_start = $data['time_start'];
+        $plan->time_end = $data['time_end'];
+        $plan->price = $data['price'];
+        $plan->save();
+        return redirect('plan');
     }
 
     /**
@@ -97,6 +138,7 @@ class PlanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $plan = Plan::findOrFail($id);
+        $plan->delete();
     }
 }

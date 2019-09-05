@@ -50,6 +50,10 @@ class VehicleController extends Controller
         ]);
         $vehicle = new Vehicle;
         $vehicle->brand = $data['brand'];
+        $vehicle->brand = $data['model'];
+        $vehicle->brand = $data['color'];
+        $vehicle->brand = $data['plate_number'];
+        $vehicle->brand = $data['seats_number'];
         $vehicle->save();
         return redirect('vehicle');
     }
@@ -87,7 +91,22 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'brand' => 'required',
+            'model' => 'required',
+            'color' => 'required',
+            'plate_number' => 'required',
+            'seats_number' => 'required',
+            'img' => '',
+        ]);
+        $vehicle = Vehicle::findOrFail($id);
+        $vehicle->brand = $data['brand'];
+        $vehicle->brand = $data['model'];
+        $vehicle->brand = $data['color'];
+        $vehicle->brand = $data['plate_number'];
+        $vehicle->brand = $data['seats_number'];
+        $vehicle->save();
+        return redirect('vehicle');
     }
 
     /**
@@ -98,6 +117,7 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vehicle = Vehicle::findorFail($id);
+        $vehicle->delete();
     }
 }
