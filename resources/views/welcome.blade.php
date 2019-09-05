@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel moj fron brenc
+                    Laravel KAKO SI ALEKSA?
                 </div>
 
                 <div class="links">
