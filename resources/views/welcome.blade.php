@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel 69.69
+                    Laravel moj fron brenc
                 </div>
 
                 <div class="links">
