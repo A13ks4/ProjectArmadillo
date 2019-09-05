@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel KAKO SI ALEKSA?
+                    Laravel Nikako :'(
                 </div>
 
                 <div class="links">
