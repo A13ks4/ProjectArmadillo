@@ -13,6 +13,6 @@ $factory->define(Plan::class, function (Faker $faker) {
         'price' => $faker->numberBetween(100, 1000),
         'city_id_from' => function(){ return factory(App\City::class)->create()->id; },
         'city_id_to' => function(){ return factory(App\City::class)->create()->id; },
-        'schedule_id' => $faker->randomDigitNotNull,
+        'schedule_id' => function(){ return factory(App\Schedule::class)->create()->id; },
     ];
 });
