@@ -2,12 +2,24 @@
 
 @section('content')
 <script>
- $(function(){
-     $(".reserve").click(function(){
-    $(".added").fadeIn();
-    $(".added").fadeOut(1000);
- });
+ $(function(){ 
+    $(".reserve").click(function(ev){
+        ev.preventDefault();  
+        var plan_id = $(this).val();
+        
+        $.ajax({
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: "POST",
+        url:    "/reservation",
+        data: {plan_id:plan_id},
+        success: function(data){
+            $(".added").html(data);
+            $(".added").fadeIn(500);
+            $(".added").fadeOut(1500);
+        }
+        });
  })
+ });
 </script>
 <div class="container">
     <div class="row justify-content-center">
@@ -57,8 +69,9 @@
                             
                             <td> <form action="{{url('reservation')}}" method="POST">
                             @csrf
+                                
                                 <input type="hidden" name="plan_id" value="{{$plan->id}}">
-                                <button type="submit">reserve</button>
+                                <button class="reserve" type="submit" value="{{$plan->id}}">reserve</button>
                             </form>
                             </td>
                             @can('update',$plan)

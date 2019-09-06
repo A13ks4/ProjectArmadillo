@@ -49,7 +49,8 @@ class ReservationController extends Controller
         $reservation->plan_id = $data['plan_id'];
        
         $reservation->save();
-        return redirect('reservation');
+        return "successfuly added plan num: ".$reservation->plan_id;
+        //return redirect('reservation');
     }
 
     /**
