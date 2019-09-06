@@ -1,99 +1,100 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Taksi</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
+        <link href="css/app.css" rel="stylesheet"/>
         <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
+            #wrapper {
+                height: 100vh; 
+                width: 100vw;
             }
-
-            .full-height {
-                height: 100vh;
+            html,body {
+                height:100%;
+                margin:0;
+                 
             }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
+            .column {
+                width: 50%;
+                height: 100%;
             }
-
-            .position-ref {
-                position: relative;
+            .column.left {
+                float: left;
             }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
+            .column.right {
+                background-image: url('{{ asset('img/welcome.jpg') }}');
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: right bottom;
+                float: right;
             }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+        <div id="wrapper">
+            <div class="column left">
+                <div class="container">
+                    <div class="row">
+                        <div id="col" class="col-md-12 align-self-center">
+                            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                                <div class="card card-signin my-5" >
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">Medjugradski taksi logo</h5>
+                                        <hr class="my-4">
+                                        <form class="form-signin" method="POST" action="{{ route('login') }}">
+                                            <div class="form-label-group">
+                                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                                @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                                <label for="inputEmail">Email adresa</label>
+                                            </div>
+                                            <div class="form-label-group">
+                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                                @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                                <label for="inputPassword">Lozinka</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox mb-3">
+                                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="remember">
+                                                    {{ __('Zapamti me') }}
+                                                </label>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">
+                                                {{ __('Prijava') }}
+                                            </button>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel Nikako :'(
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                                            @if (Route::has('password.request'))
+                                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                    {{ __('Zaboravili ste lozinku?') }}
+                                                </a>
+                                            @endif
+                                            <hr class="my-4">
+                                            <div class="col">
+                                                <p>Nemate nalog? <a href="">Registrujte se</a></p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="column right"></div>
         </div>
     </body>
 </html>
