@@ -8,7 +8,7 @@ class ReservationController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('admin')->except('index');
+        //$this->middleware('admin')->except('index');
     }
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservation = Reservation::all();
-        return view('reservation/reservation',compact('reservation'));
+        $reservations = Reservation::all();
+        return view('reservation/reservation',compact('reservations'));
     }
 
     /**
@@ -39,7 +39,17 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            
+            'plan_id' => 'required',
+            
+        ]);
+        $reservation = new Reservation;
+        $reservation->user_id = auth()->user()->id;
+        $reservation->plan_id = $data['plan_id'];
+       
+        $reservation->save();
+        return redirect('reservation');
     }
 
     /**

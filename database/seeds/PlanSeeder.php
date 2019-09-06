@@ -12,8 +12,6 @@ class PlanSeeder extends Seeder
     public function run()
     {
         factory(App\Plan::class, 5)->create();
-        factory(App\User::class, 5)->create()->each(function($u) {
-            $u->plans()->attach(App\User::all()->random(3));
-        });
+        
     }
 }

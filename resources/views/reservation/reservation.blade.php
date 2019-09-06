@@ -45,25 +45,15 @@
                         @can('create', App\Plan::class)<a href="/plan/create" class="btn btn-primary">+</a>@endcan
                         <br>
                         <table class="table table-striped table-hover"> 
-                        <tr><td>City from:</td><td>City to:</td><td>Vehicle:</td><td>Driver:</td><td>Time start:</td><td>Time end:</td></tr>
-                        @foreach ($plans as $plan)
+                        <tr><td>User:</td><td>Plan:</td><td>Vehicle:</td></tr>
+                        @foreach ($reservations as $reservation)
                            
-                            <tr><td>{{ $plan->city_from->name }}</td>
-                            <td>{{ $plan->city_to->name }}</td>
-                            <td>{{ $plan->schedule->vehicle->brand }}</td>
-                            <td>{{ $plan->schedule->driver->firstname }}</td>
-                            <td>{{ $plan->time_start }}</td>
-                            <td>{{ $plan->time_end }}</td>
+                            <tr><td>{{ $reservation->user_id }}</td>
+                            <td>{{ $reservation->plan_id }}</td>
+                            <td>{{ $reservation->plan->schedule->vehicle->brand }}</td>
                             
-                            <td> <form action="{{url('reservation')}}" method="POST">
-                            @csrf
-                                <input type="hidden" name="plan_id" value="{{$plan->id}}">
-                                <button type="submit">reserve</button>
-                            </form>
-                            </td>
-                            @can('update',$plan)
-                            <td><a href="plan/{{$plan->id}}/edit">edit</a></td>
-                            @endcan
+                           
+                           
                             </tr>
                         @endforeach
                         </table>

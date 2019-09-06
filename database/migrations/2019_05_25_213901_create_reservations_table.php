@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlanUserTable extends Migration
+class CreateReservationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePlanUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('plan_user', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned()->index();
             $table->integer('plan_id')->unsigned()->index();
@@ -30,6 +30,6 @@ class CreatePlanUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plan_user');
+        Schema::dropIfExists('reservations');
     }
 }
