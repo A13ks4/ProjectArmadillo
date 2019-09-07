@@ -15,7 +15,7 @@
                     @endif
                     <div>
                         <span>Create street</span>
-                        <form action="/street" method="POST">
+                        <form action="/vehicle" method="POST">
                         @csrf
                     
                             <span>Vehicle Brand:</span>

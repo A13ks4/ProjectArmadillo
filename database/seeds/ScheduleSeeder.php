@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class PlanSeeder extends Seeder
+class ScheduleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,7 +11,6 @@ class PlanSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Plan::class, 5)->create();
-        
+        factory(App\Schedule::class, 5)->create();
     }
 }

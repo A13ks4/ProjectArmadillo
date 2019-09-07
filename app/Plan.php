@@ -22,7 +22,7 @@ class Plan extends Model
     }
 
     public function reservations(){
-        return $this->belongsToMany('App\Reservation');
+        return $this->hasMany('App\Reservation');
     }
 
     public function city_from(){
