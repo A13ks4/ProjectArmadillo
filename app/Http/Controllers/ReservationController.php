@@ -44,12 +44,19 @@ class ReservationController extends Controller
             'plan_id' => 'required',
             
         ]);
+        
+        if(Reservation::where("plan_id",$data['plan_id'])->where("user_id",auth()->user()->id)->exists()){
+            return "Plan already reserved ";
+        }
+        
         $reservation = new Reservation;
         $reservation->user_id = auth()->user()->id;
         $reservation->plan_id = $data['plan_id'];
        
         $reservation->save();
+        
         return "successfuly added plan num: ".$reservation->plan_id;
+        
         //return redirect('reservation');
     }
 
