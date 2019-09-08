@@ -23,26 +23,27 @@
         ev.preventDefault();  
         var from = $("#from option:selected").val();
         var to = $("#to option:selected").val();
-
+        var alphabetical = $("#alphabetical").val();
+        var date = $("#date").val();
+  
         $.ajax({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         type: "GET",
         url:    "/search",
-        data: {city_from:from, city_to:to},
+        dataType: "text json",
+        data: {city_from:from, city_to:to, alphabetical:alphabetical, date:date},
         success: function(data){
-            
-    
-            $(".table").html("");
-            var html = "<tr><td>"+ data.cities[0].id + "</td></tr>";
+            console.log(data);
+            $(".table").html("<tbody>");
+            var html = "<tr><td>City from:</td><td>City to:</td><td>Price:</td><td>Time start:</td><td>Time end:</td></tr>";
             $.each(data, function(i, item){
-                
-                var j = $.parseJSON(item);
-                //alert(data.plans.id);
-                console.log(j[4].id);
-                console.log(data);
-                console.log(item);
-                //html += "<tr><td>"+ j[0].name + "</td>";
-                //html += "<tr><td>"+ data.plans[0] + "</td></tr>";
+
+                html += "<tr><td>"+ item.city_from.name + "</td>";
+                html += "<td>"+ item.city_to.name + "</td>";
+                html += "<td>"+ item.price + "</td>";
+                html += "<td>"+ item.time_start + "</td>";
+                html += "<td>"+ item.time_end + "</td>";
+                html += "<td>"+ item.date + "</td></tr>";
                
             });
             $(".table").append(html);
@@ -69,34 +70,40 @@
                         
                         <form action="/search" method="GET">
                         @csrf
+                            <select name="alphabetical" id="alphabetical">
+                                <option value="0"></option>
+                                <option value="1">ASC</option>
+                                <option value="2">DSC</option>
+                            </select>
+
                             <select name="city_from" id="from">
-                           
+                           <option value="0"></option>
                             @foreach ($cities as $city)
                                 <option value="{{$city->id}}">{{$city->name}}</option>
                             @endforeach
                             </select>
                             <select name="city_to" id="to">
-                           
+                            <option value="0"></option>
                             @foreach ($cities as $city)
                                 <option value="{{$city->id}}">{{$city->name}}</option>
                             @endforeach
                             </select>
+                            <input type="date" name="date" id="date">
                             <button class="btn search" type="submit">Search</button>
                         </form>
 
                         @can('create', App\Plan::class)<a href="/plan/create" class="btn btn-primary">+</a>@endcan
                         <br>
                         <table class="table table-striped table-hover"> 
-                        <tr><td>City from:</td><td>City to:</td><td>Vehicle:</td><td>Driver:</td><td>Time start:</td><td>Time end:</td></tr>
+                        <tr><td>City from:</td><td>City to:</td><td>Price:</td><td>Time start:</td><td>Time end:</td></tr>
                         @foreach ($plans as $plan)
                            
                             <tr><td>{{ $plan->city_from->name }}</td>
                             <td>{{ $plan->city_to->name }}</td>
-                            <td>{{ $plan->schedule->vehicle->brand }}</td>
-                            <td>{{ $plan->schedule->driver->firstname }}</td>
+                            <td>{{ $plan->price }}</td>
                             <td>{{ $plan->time_start }}</td>
                             <td>{{ $plan->time_end }}</td>
-                            
+                            <td>{{ $plan->date }}</td>
                             <td> <form action="{{url('reservation')}}" method="POST">
                             @csrf
                                 
