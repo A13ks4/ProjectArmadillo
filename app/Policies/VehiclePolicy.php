@@ -10,6 +10,13 @@ class VehiclePolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view the vehicle.
      *
@@ -19,7 +26,7 @@ class VehiclePolicy
      */
     public function view(User $user, Vehicle $vehicle)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -30,7 +37,7 @@ class VehiclePolicy
      */
     public function create(User $user)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -42,7 +49,7 @@ class VehiclePolicy
      */
     public function update(User $user, Vehicle $vehicle)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +61,7 @@ class VehiclePolicy
      */
     public function delete(User $user, Vehicle $vehicle)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**

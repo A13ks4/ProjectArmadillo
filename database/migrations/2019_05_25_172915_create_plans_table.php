@@ -19,6 +19,7 @@ class CreatePlansTable extends Migration
             $table->time('time_start');
             $table->time('time_end');
             $table->integer('price');
+            $table->integer('space');
             $table->integer('city_id_from')->unsigned()->index();
             $table->integer('city_id_to')->unsigned()->index();
             $table->integer('schedule_id')->unsigned()->index();

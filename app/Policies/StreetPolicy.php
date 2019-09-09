@@ -10,6 +10,13 @@ class StreetPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+    }
+    
     /**
      * Determine whether the user can view the street.
      *
@@ -19,7 +26,7 @@ class StreetPolicy
      */
     public function view(User $user, Street $street)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -30,7 +37,7 @@ class StreetPolicy
      */
     public function create(User $user)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -42,7 +49,7 @@ class StreetPolicy
      */
     public function update(User $user, Street $street)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +61,7 @@ class StreetPolicy
      */
     public function delete(User $user, Street $street)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**

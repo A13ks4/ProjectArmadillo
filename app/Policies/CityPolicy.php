@@ -10,6 +10,13 @@ class CityPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view the city.
      *
@@ -19,7 +26,7 @@ class CityPolicy
      */
     public function view(User $user, City $city)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -30,7 +37,7 @@ class CityPolicy
      */
     public function create(User $user)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -42,7 +49,7 @@ class CityPolicy
      */
     public function update(User $user, City $city)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +61,7 @@ class CityPolicy
      */
     public function delete(User $user, City $city)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**

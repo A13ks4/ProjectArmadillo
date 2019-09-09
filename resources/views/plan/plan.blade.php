@@ -3,22 +3,7 @@
 @section('content')
 <script>
  $(function(){ 
-    $(".reserve").click(function(ev){
-        ev.preventDefault();  
-        var plan_id = $(this).val();
-        
-        $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        type: "POST",
-        url:    "/reservation",
-        data: {plan_id:plan_id},
-        success: function(data){
-            $(".added").html(data);
-            $(".added").fadeIn(500);
-            $(".added").fadeOut(1500);
-        }
-        });
-    })
+   
     $(".search").click(function(ev){
         ev.preventDefault();  
         var from = $("#from option:selected").val();
@@ -34,23 +19,54 @@
         data: {city_from:from, city_to:to, alphabetical:alphabetical, date:date},
         success: function(data){
             console.log(data);
-            $(".table").html("<tbody>");
-            var html = "<tr><td>City from:</td><td>City to:</td><td>Price:</td><td>Time start:</td><td>Time end:</td></tr>";
-            $.each(data, function(i, item){
-
-                html += "<tr><td>"+ item.city_from.name + "</td>";
-                html += "<td>"+ item.city_to.name + "</td>";
-                html += "<td>"+ item.price + "</td>";
-                html += "<td>"+ item.time_start + "</td>";
-                html += "<td>"+ item.time_end + "</td>";
-                html += "<td>"+ item.date + "</td></tr>";
-               
-            });
-            $(".table").append(html);
+            $(".results").html("");
+            $(".results").append(data);
         }
         });
     })
+    Reserve();
  });
+ function Pagnation(){
+    $(".page-link").click(function(ev){
+        ev.preventDefault();  
+        var from = $("#from option:selected").val();
+        var to = $("#to option:selected").val();
+        var alphabetical = $("#alphabetical").val();
+        var date = $("#date").val();
+        var page = $(this).attr('href').split('page=')[1];
+        //alert(page);
+        $.ajax({
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: "GET",
+        url:    "/search?page="+page,
+        dataType: "text json",
+        data: {city_from:from, city_to:to, alphabetical:alphabetical, date:date},
+        success: function(data){
+            console.log(data);
+            $(".results").html("");
+            $(".results").append(data);
+        }
+        });
+    })
+ }
+ function Reserve(){
+        $(".reserve").click(function(ev){
+            ev.preventDefault();  
+            var plan_id = $(this).val();
+            
+            $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type: "POST",
+            url:    "/reservation",
+            data: {plan_id:plan_id},
+            success: function(data){
+                $(".added").html(data);
+                $(".added").fadeIn(500);
+                $(".added").fadeOut(1500);
+            }
+            });
+        })
+    }
 </script>
 <div class="container">
     <div class="row justify-content-center">
@@ -94,29 +110,33 @@
 
                         @can('create', App\Plan::class)<a href="/plan/create" class="btn btn-primary">+</a>@endcan
                         <br>
-                        <table class="table table-striped table-hover"> 
-                        <tr><td>City from:</td><td>City to:</td><td>Price:</td><td>Time start:</td><td>Time end:</td></tr>
-                        @foreach ($plans as $plan)
-                           
-                            <tr><td>{{ $plan->city_from->name }}</td>
-                            <td>{{ $plan->city_to->name }}</td>
-                            <td>{{ $plan->price }}</td>
-                            <td>{{ $plan->time_start }}</td>
-                            <td>{{ $plan->time_end }}</td>
-                            <td>{{ $plan->date }}</td>
-                            <td> <form action="{{url('reservation')}}" method="POST">
-                            @csrf
-                                
-                                <input type="hidden" name="plan_id" value="{{$plan->id}}">
-                                <button class="reserve" type="submit" value="{{$plan->id}}">reserve</button>
-                            </form>
-                            </td>
-                            @can('update',$plan)
-                            <td><a href="plan/{{$plan->id}}/edit">edit</a></td>
-                            @endcan
-                            </tr>
-                        @endforeach
-                        </table>
+                        <div class="results">
+                            <table class="table table-striped table-hover"> 
+                            <tr><td>City from:</td><td>City to:</td><td>Price:</td><td>FreeSpace:</td><td>Time start:</td><td>Time end:</td></tr>
+                            @foreach ($plans as $plan)
+                            
+                                <tr><td>{{ $plan->city_from->name }}</td>
+                                <td>{{ $plan->city_to->name }}</td>
+                                <td>{{ $plan->price }}</td>
+                                <td>{{ $plan->space }}</td>
+                                <td>{{ $plan->time_start }}</td>
+                                <td>{{ $plan->time_end }}</td>
+                                <td>{{ $plan->date }}</td>
+                                <td> <form action="{{url('reservation')}}" method="POST">
+                                @csrf
+                                    
+                                    <input type="hidden" name="plan_id" value="{{$plan->id}}">
+                                    <button class="reserve" type="submit" value="{{$plan->id}}">reserve</button>
+                                </form>
+                                </td>
+                                @can('update',$plan)
+                                <td><a href="plan/{{$plan->id}}/edit">edit</a></td>
+                                @endcan
+                                </tr>
+                            @endforeach
+                            </table>
+                            {{ $plans->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

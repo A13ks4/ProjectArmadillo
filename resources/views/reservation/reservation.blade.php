@@ -47,12 +47,12 @@
                         <table class="table table-striped table-hover"> 
                         <tr><td>User:</td><td>Plan:</td><td>Vehicle:</td></tr>
                         @foreach ($reservations as $reservation)
-                           
+                           @can('view',$reservation) <!-- Samo odlucuje za drivera i usera koje da prikaze, admin vidi sve -->
                             <tr><td>{{ $reservation->user_id }}</td>
                             <td>{{ $reservation->plan_id }}</td>
                             <td>{{ $reservation->plan->schedule->vehicle->brand }}</td>
                             
-                           
+                           @endcan
                            
                             </tr>
                         @endforeach

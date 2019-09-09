@@ -8,7 +8,8 @@ class VehicleController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('admin')->except('index');
+        $this->middleware('admin');
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.

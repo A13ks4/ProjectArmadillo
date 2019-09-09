@@ -10,6 +10,14 @@ class PlanPolicy
 {
     use HandlesAuthorization;
 
+
+    public function before($user, $ability)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view the plan.
      *
@@ -19,7 +27,7 @@ class PlanPolicy
      */
     public function view(User $user, Plan $plan)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -30,7 +38,7 @@ class PlanPolicy
      */
     public function create(User $user)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -43,7 +51,7 @@ class PlanPolicy
     public function update(User $user, Plan $plan)
     {
         
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -55,7 +63,7 @@ class PlanPolicy
      */
     public function delete(User $user, Plan $plan)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**

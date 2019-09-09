@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('admin')->except('index');
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
