@@ -10,6 +10,13 @@ class CityPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability)
+    {
+        if (auth()->user()->isAdmin()) {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view the city.
      *
@@ -54,7 +61,7 @@ class CityPolicy
      */
     public function delete(User $user, City $city)
     {
-        //
+        return auth()->user()->isAdmin();
     }
 
     /**

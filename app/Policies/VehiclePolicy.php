@@ -10,6 +10,13 @@ class VehiclePolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability)
+    {
+        if (auth()->user()->isAdmin()) {
+            return true;
+        }
+    }
+
     /**
      * Determine whether the user can view the vehicle.
      *

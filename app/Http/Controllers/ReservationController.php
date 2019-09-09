@@ -8,7 +8,8 @@ class ReservationController extends Controller
 {
 
     public function __construct(){
-        //$this->middleware('admin')->except('index');
+        $this->middleware('admin')->except('index');
+        //$this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -45,6 +46,7 @@ class ReservationController extends Controller
             
         ]);
         
+        //Proverava da li postoji rezervacija sa id plana i id usera
         if(Reservation::where("plan_id",$data['plan_id'])->where("user_id",auth()->user()->id)->exists()){
             return "Plan already reserved ";
         }
@@ -56,8 +58,6 @@ class ReservationController extends Controller
         $reservation->save();
         
         return "successfuly added plan num: ".$reservation->plan_id;
-        
-        //return redirect('reservation');
     }
 
     /**
