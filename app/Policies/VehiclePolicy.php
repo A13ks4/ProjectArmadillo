@@ -19,7 +19,7 @@ class VehiclePolicy
      */
     public function view(User $user, Vehicle $vehicle)
     {
-        return auth()->user()->isAdmin() || auth()->user()->isDriver();
+        return auth()->user()->isAdmin();
     }
 
     /**
