@@ -1,32 +1,55 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-10 col-md-12">
             <div class="card">
-                <div class="card-header">Vehicles</div>
-
+                <div class="card-header">
+                    <nav class="navbar">
+                        <ul class="navbar-nav mr-auto">
+                            <span class="navbar-brand">Vozni park</span>
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            @can('create', App\Vehicle::class)
+                                <a href="/vehicle/create" class="btn btn-primary">Novo vozilo</a>
+                            @endcan
+                        </ul>
+                    </nav>
+                </div>
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <div>
-                        <span>Vehicles go here</span>
-                        <br>
-                        <a href="/vehicle/create" class="btn btn-primary">+</a>
-                        <br>
-                        @foreach($vehicles as $vehicle)
-                            <p>{{$vehicle->brand}}</p>
-                        @can('update',$vehicle)
-                            <a href="/vehicle/{{$vehicle->id}}/edit">edit</a>
+                    <table class="table table-striped table-hover"> 
+                        <tr>
+                            <th scope="col">Br. reg-tablica</th>
+                            <th scope="col">Brend</th>
+                            <th scope="col">Model</th>
+                            <th scope="col">Boja</th>
+                            <th scope="col">Br. sedista</th>
+                            <th scope="col">Akcija</th>
+                        </tr>
+                    @foreach($vehicles as $vehicle)
+                        <tr>
+                            <td>{{$vehicle->plate_number}}</td>
+                            <td>{{$vehicle->brand}}</td>
+                            <td>{{$vehicle->model}}</td>
+                            <td>{{$vehicle->color}}</td>
+                            <td>{{$vehicle->seats_number}}</td>
+                        @can('create', $vehicle)
+                            <td>
+                                <a href="#"> <!-- Mozda bude pop-up -->
+                                    <img class="mr-2 mb-1" width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
+                                </a>
+                                <a href="/vehicle/{{$vehicle->id}}/edit">
+                                    <img class="mr-2 mb-1" width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
+                                </a>
+                                <a href="#">
+                                    <img class="mr-2 mb-1" width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
+                                </a>
+                            </td>
                         @endcan
-                        @endforeach
-                            
-                    </div>
-                    You are logged in!
+                        </tr>
+                    @endforeach 
+                    </table>
                 </div>
             </div>
         </div>

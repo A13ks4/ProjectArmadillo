@@ -1,0 +1,54 @@
+#sidebar {
+    max-width: 260px;
+    min-width: 260px;
+}
+
+#sidebutton {
+    width: 30px;
+    background-color: white;
+    color: black;
+    border: none;
+    display: none;
+}
+
+#logo {
+    width: 55px;
+    height: 70px;
+    margin-left: 0px;
+}
+
+@media (max-width: 900px) {
+    #sidebar {
+        max-width: 70px;
+        min-width: 70px;
+    }
+    #sidebutton {
+        display: block;
+    }
+    .sideitem {
+        display: none;
+    }
+    #logo {
+        width: 40px;
+        height: 50px;
+        margin-left: 10px;
+    }
+}
+
+@media (max-width: 700px) {
+    #sidebar {
+        max-width: 100%;
+        min-width: 100%;
+    }
+    #sidebutton {
+        display: none;
+    }
+    .sideitem {
+        display: inline-block;
+    }
+    #logo {
+        width: 50px;
+        height: 65px;
+        margin-left: 0px;
+    }
+}
