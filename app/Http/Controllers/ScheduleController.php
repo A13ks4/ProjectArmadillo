@@ -8,8 +8,8 @@ class ScheduleController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('admin');
-        //$this->middleware('auth');
+        $this->middleware('admin')->except('index');
+        $this->middleware('auth');
     }
 
     /**

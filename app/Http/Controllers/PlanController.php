@@ -15,7 +15,7 @@ class PlanController extends Controller
 
     public function __construct(){
         $this->middleware('admin')->except('index','search');
-        //$this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**

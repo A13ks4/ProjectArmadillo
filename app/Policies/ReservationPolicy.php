@@ -12,7 +12,7 @@ class ReservationPolicy
 
     public function before($user, $ability)
     {
-        if (auth()->user()->isAdmin()) {
+        if ($user->isAdmin()) {
             return true;
         }
     }
@@ -37,7 +37,7 @@ class ReservationPolicy
      */
     public function create(User $user)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -49,7 +49,7 @@ class ReservationPolicy
      */
     public function update(User $user, Reservation $reservation)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
@@ -61,7 +61,7 @@ class ReservationPolicy
      */
     public function delete(User $user, Reservation $reservation)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 
     /**
