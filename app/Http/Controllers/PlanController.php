@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserCollection;
 use App\Plan;
 use App\City;
+use View;
+use Response;
 class PlanController extends Controller
 {
 
@@ -22,8 +24,9 @@ class PlanController extends Controller
      */
     public function index()
     {
-        $plans = Plan::all();//with("city_from", "city_to")->where("city_id_to",7)->get()->sortBy("city_from.name");
+        $plans = Plan::paginate(5);
         $cities = City::all();
+        
         return view('plan/plan',compact('plans'), compact('cities'));
     }
     /**
@@ -32,37 +35,27 @@ class PlanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function search(Request $request){
-        if(empty($request->date)){
-            if(empty($request->city_from)){
-                $plans = Plan::with("city_from", "city_to")->where("city_id_to",$request->city_to)->get();
-            }else if(empty($request->city_to)){
-                $plans = Plan::with("city_from", "city_to")->where("city_id_from",$request->city_from)->get();
-            }else{
-                $plans = Plan::with("city_from", "city_to")->where("city_id_from",$request->city_from)->where("city_id_to",$request->city_to)->get();
-            }
-        }else{
-            if(empty($request->city_from)){
-                $plans = Plan::with("city_from", "city_to")->where("city_id_to",$request->city_to)->where("date",$request->date)->get();
-            }else if(empty($request->city_to)){
-                $plans = Plan::with("city_from", "city_to")->where("city_id_from",$request->city_from)->where("date",$request->date)->get();
-            }else{
-                $plans = Plan::with("city_from", "city_to")->where("city_id_from",$request->city_from)->where("city_id_to",$request->city_to)->where("date",$request->date)->get();
-            }
+
+        $plans = Plan::join('cities','plans.city_id_from','=','cities.id')->with("city_from", "city_to");
+        if($request->alphabetical == 1)
+            $plans = $plans->orderBy("cities.name");
+        if($request->alphabetical == 2)
+            $plans = $plans->orderBy("cities.name","desc");
+
+        if(!empty($request->city_from))
+            $plans = $plans->where("city_id_from",$request->city_from);
+        if(!empty($request->city_to))
+            $plans = $plans->where("city_id_to",$request->city_to);
+        if(!empty($request->date)){
+            $plans = $plans->where("date",$request->date);
         }
         
-        //\Response::json([ "plans"=>$plans->toJson(), "cities"=>$cities->toJson()])
-        if($request->alphabetical == 0)
-            return $plans->toJson();
-        else if($request->alphabetical == 1)
-            if(empty($request->city_to))
-            return $plans->sortBy("city_to.name")->values()->toJson();
-            else
-            return $plans->sortBy("city_from.name")->values()->toJson();
-        else
-            if(empty($request->city_to))
-            return $plans->sortByDesc("city_to.name")->values()->toJson();
-            else
-            return $plans->sortByDesc("city_from.name")->values()->toJson();
+        
+        $plans = $plans->paginate(2); 
+           
+        $html = View::make("pagination", compact('plans'));
+        return  Response::json($html->render());
+
     }
 
     /**
