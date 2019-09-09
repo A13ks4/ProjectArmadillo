@@ -112,12 +112,13 @@
                         <br>
                         <div class="results">
                             <table class="table table-striped table-hover"> 
-                            <tr><td>City from:</td><td>City to:</td><td>Price:</td><td>Time start:</td><td>Time end:</td></tr>
+                            <tr><td>City from:</td><td>City to:</td><td>Price:</td><td>FreeSpace:</td><td>Time start:</td><td>Time end:</td></tr>
                             @foreach ($plans as $plan)
                             
                                 <tr><td>{{ $plan->city_from->name }}</td>
                                 <td>{{ $plan->city_to->name }}</td>
                                 <td>{{ $plan->price }}</td>
+                                <td>{{ $plan->space }}</td>
                                 <td>{{ $plan->time_start }}</td>
                                 <td>{{ $plan->time_end }}</td>
                                 <td>{{ $plan->date }}</td>

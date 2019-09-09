@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Reservation;
+use App\Plan;
 class ReservationController extends Controller
 {
 
@@ -45,6 +46,9 @@ class ReservationController extends Controller
             'plan_id' => 'required',
             
         ]);
+        if(Plan::findOrFail($data['plan_id'])->space == 0){
+            return "No more free space";
+        }
         
         //Proverava da li postoji rezervacija sa id plana i id usera
         if(Reservation::where("plan_id",$data['plan_id'])->where("user_id",auth()->user()->id)->exists()){
@@ -56,7 +60,9 @@ class ReservationController extends Controller
         $reservation->plan_id = $data['plan_id'];
        
         $reservation->save();
-        
+        $plan = Plan::findOrFail($data['plan_id']);
+        $plan->space =  $plan->space - 1;
+        $plan->save();
         return "successfuly added plan num: ".$reservation->plan_id;
     }
 

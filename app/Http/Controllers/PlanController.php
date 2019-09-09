@@ -25,6 +25,7 @@ class PlanController extends Controller
      */
     public function index()
     {
+        
         $plans = Plan::paginate(5);
         $cities = City::all();
         
@@ -83,6 +84,7 @@ class PlanController extends Controller
             'city_id_to' => 'required',
             'schedule' => 'required',
             'date' => 'required',
+            'space' => 'required',
             'time_start' => 'required',
             'time_end' => 'required',
             'price' => 'required',
@@ -90,8 +92,9 @@ class PlanController extends Controller
         $plan = new Plan;
         $plan->city_id_from = $data['city_id_from'];
         $plan->city_id_to = $data['city_id_to'];
-        $plan->schedule = $data['schedule'];
+        $plan->schedule_id = $data['schedule'];
         $plan->date = $data['date'];
+        $plan->space = $data['space'];
         $plan->time_start = $data['time_start'];
         $plan->time_end = $data['time_end'];
         $plan->price = $data['price'];
