@@ -14,6 +14,5 @@ $factory->define(Plan::class, function (Faker $faker) {
         'space' => $faker->numberBetween(2, 8),
         'city_id_from' => $faker->numberBetween(1, 5),
         'city_id_to' => $faker->numberBetween(1, 5),
-        'schedule_id' => function(){ return factory(App\Schedule::class)->create()->id; },
     ];
 });
