@@ -141,28 +141,21 @@
                             <tr>
                                 <td>{{ $plan->city_from->name }}</td>
                                 <td>{{ $plan->city_to->name }}</td>
-                                <td>
-                                <select name="street" id="street{{$plan->id}}">
-                                    @foreach($cities[$plan->city_id_to-1]->streets as $street)
-                                        <option value="{{$street->name}}">{{$street->name}}</option>      
-                                    @endforeach
-                                </select>
-                                </td>
-                                <td>{{ $plan->price }}</td>
-                                <td>{{ $plan->space }}</td>
                                 <td>{{ $plan->time_start }}</td>
                                 <td>{{ $plan->time_end }}</td>
                                 <td>{{ $plan->date }}</td>
                                 <td>{{ $plan->price }}</td>
-
+                                <td>{{ $plan->space }}</td>
                                 <td>
                                     <div class="row">
                                         <div class="col">
+                                            @unless (Auth::user()->can('create', App\Plan::class))
                                             <form action="{{url('reservation')}}" method="POST">
                                             @csrf
                                                 <input type="hidden" name="plan_id" value="{{$plan->id}}">
                                                 <button style="width:75px" class="reserve btn btn-success" type="submit" value="{{$plan->id}}">reserve</button>
                                             </form>
+                                            @endunless
                                             @can('update',$plan)
                                                 <button style="width:45px" class="btn btn-secondary" href="plan/{{$plan->id}}/edit">
                                                     <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">

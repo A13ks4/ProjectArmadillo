@@ -15,7 +15,6 @@
                         @foreach($cities as $city)
                         <option value="{{$city->id}}">{{$city->name}}</option>
                         @endforeach
-                        <!-- FOREACH CITY -->
                         </select>
                         <span>Do:</span> <br>
                         <select class="form-control" name="city_to" id="to">
@@ -23,7 +22,6 @@
                         @foreach($cities as $city)
                         <option value="{{$city->id}}">{{$city->name}}</option>
                         @endforeach
-                        <!-- FOREACH CITY -->
                         </select>
                         <span>Polazak:</span>
                         <input type="time" class="form-control" name="model" ><br>
