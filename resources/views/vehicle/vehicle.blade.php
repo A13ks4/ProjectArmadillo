@@ -18,8 +18,9 @@
                     </nav>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-hover"> 
+                    <table class="table table-striped table-sm table-hover"> 
                         <tr>
+                            <th scope="col"></th>
                             <th scope="col">Br. reg-tablica</th>
                             <th scope="col">Brend</th>
                             <th scope="col">Model</th>
@@ -29,6 +30,7 @@
                         </tr>
                     @foreach($vehicles as $vehicle)
                         <tr>
+                            <td class="text-center"><img class="rounded-circle" width="35px" height="35px" src="{{$vehicle->img}}" alt="none"></td>
                             <td>{{$vehicle->plate_number}}</td>
                             <td>{{$vehicle->brand}}</td>
                             <td>{{$vehicle->model}}</td>

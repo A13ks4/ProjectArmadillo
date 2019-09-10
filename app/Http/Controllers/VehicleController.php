@@ -51,12 +51,13 @@ class VehicleController extends Controller
         ]);
         $vehicle = new Vehicle;
         $vehicle->brand = $data['brand'];
-        $vehicle->brand = $data['model'];
-        $vehicle->brand = $data['color'];
-        $vehicle->brand = $data['plate_number'];
-        $vehicle->brand = $data['seats_number'];
+        $vehicle->model = $data['model'];
+        $vehicle->color = $data['color'];
+        $vehicle->plate_number = $data['plate_number'];
+        $vehicle->seats_number = $data['seats_number'];
+        $vehicle->img = "https://img.freeauctiondesigns.com/morexauto/gallery6.jpg";
         $vehicle->save();
-        return redirect('vehicle');
+        return redirect('vehicle'); 
     }
 
     /**
@@ -102,10 +103,11 @@ class VehicleController extends Controller
         ]);
         $vehicle = Vehicle::findOrFail($id);
         $vehicle->brand = $data['brand'];
-        $vehicle->brand = $data['model'];
-        $vehicle->brand = $data['color'];
-        $vehicle->brand = $data['plate_number'];
-        $vehicle->brand = $data['seats_number'];
+        $vehicle->model = $data['model'];
+        $vehicle->color = $data['color'];
+        $vehicle->plate_number = $data['plate_number'];
+        $vehicle->seats_number = $data['seats_number'];
+        $vehicle->img = "https://img.freeauctiondesigns.com/morexauto/gallery6.jpg";
         $vehicle->save();
         return redirect('vehicle');
     }

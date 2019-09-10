@@ -12,7 +12,7 @@ $factory->define(Vehicle::class, function (Faker $faker) {
         'model' => $faker->vehicleModel,
         'color' => $faker->colorName,
         'plate_number' => $faker->vehicleRegistration,
-        'seats_number' => $faker->numberBetween(4,8),
+        'seats_number' => $faker->numberBetween(5,7),
         'img' => $faker->image(),
     ];
 });
