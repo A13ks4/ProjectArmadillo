@@ -44,14 +44,19 @@
                                 <a href="/vehicle/{{$vehicle->id}}/edit">
                                     <img class="mr-2 mb-1" width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
                                 </a>
-                                <a href="#">
-                                    <img class="mr-2 mb-1" width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
-                                </a>
+                                <form action="/vehicle/{{$vehicle->id}}" method="POST">
+                                @method('DELETE')
+                                @csrf
+                                <button>
+                                        <img class="mr-2 mb-1" width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
+                                </button>
+                                </form>
                             </td>
                         @endcan
                         </tr>
                     @endforeach 
                     </table>
+                    {{$vehicles->links()}}
                 </div>
             </div>
         </div>
