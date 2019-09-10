@@ -1,31 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-5 col-md-8">
             <div class="card">
-                <div class="card-header">Create Plan</div>
-
+                <div class="card-header">Novi plan (ruta)</div>
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                    <form action="/plan" enctype="multipart/form-data" method="POST">
+                    @csrf
+                        <span>Od:</span> <br>
+                        <select class="form-control" name="city_from" id="from">
+                        <option value="0"></option>
+                        <!-- FOREACH CITY -->
+                        </select>
+                        <span>Do:</span> <br>
+                        <select class="form-control" name="city_to" id="to">
+                        <option value="0"></option>
+                        <!-- FOREACH CITY -->
+                        </select>
+                        <span>Polazak:</span>
+                        <input type="time" class="form-control" name="model" ><br>
+                        <span>Dolazak:</span>
+                        <input type="time" class="form-control" name="color" ><br>
+                        <span>Datum:</span>
+                        <input type="date" class="form-control" name="seats_number" ><br>
+                        <div class="row justify-content-center">
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Dodaj plan') }}
+                                </button>
+                            </div>
                         </div>
-                    @endif
-                    <div>
-                        <span>Plans go here</span>
-                        <form action="/plan" method="POST">
-                        @csrf
-                    
-                            <span>Plan Name:</span>
-                       
-                            <input type="text" class="form-control" name="planName" ><br>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                            
-                    </div>
-                    You are logged in!
+                    </form>
                 </div>
             </div>
         </div>

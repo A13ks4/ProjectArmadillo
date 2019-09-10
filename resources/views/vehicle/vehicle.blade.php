@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row">
+    <div class="row ">
         <div class="col-lg-10 col-md-12">
             <div class="card">
                 <div class="card-header">
@@ -26,7 +26,7 @@
                             <th scope="col">Model</th>
                             <th scope="col">Boja</th>
                             <th scope="col">Br. sedista</th>
-                            <th scope="col">Akcija</th>
+                            <th scope="col"></th>
                         </tr>
                     @foreach($vehicles as $vehicle)
                         <tr>
@@ -35,22 +35,28 @@
                             <td>{{$vehicle->brand}}</td>
                             <td>{{$vehicle->model}}</td>
                             <td>{{$vehicle->color}}</td>
-                            <td>{{$vehicle->seats_number}}</td>
+                            <td class=" " >{{$vehicle->seats_number}}</td>
                         @can('create', $vehicle)
                             <td>
-                                <a href="#" onclick="vehicle = {{$vehicle}}; showpopup()"> <!-- Mozda bude pop-up -->
-                                    <img class="mr-2 mb-1" width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
-                                </a>
-                                <a href="/vehicle/{{$vehicle->id}}/edit">
-                                    <img class="mr-2 mb-1" width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
-                                </a>
-                                <form action="/vehicle/{{$vehicle->id}}" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                <button>
-                                        <img class="mr-2 mb-1" width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
-                                </button>
-                                </form>
+                                <div class="row">
+                                    <div class="col">
+                                        <button style="width:45px" class="btn btn-primary" href="#" onclick="vehicle = {{$vehicle}}; showpopup()">
+                                            <img width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
+                                        </button>
+                                        <button style="width:45px" class="btn btn-secondary" href="/vehicle/{{$vehicle->id}}/edit">
+                                            <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
+                                        </button>
+                                    </div>
+                                    <div class="col">
+                                        <form action="/vehicle/{{$vehicle->id}}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button style="width:45px" class="btn btn-danger">
+                                                <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
                             </td>
                         @endcan
                         </tr>
