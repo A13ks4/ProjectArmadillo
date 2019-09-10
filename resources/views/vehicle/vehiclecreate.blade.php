@@ -19,7 +19,7 @@
                         <input type="text" class="form-control" name="color" ><br>
                         <span>Br. sedista:</span>
                         <input type="number" value="2" class="form-control" name="seats_number" ><br>
-                        <span>Slika:</span> <!-- Ili link do slike nzm sta cemo -->
+                        <span>Slika:</span>
                         <div class="custom-file">
                             <input type="file" name="image"  class="custom-file-input" id="fileInput" onChange="test()" aria-describedby="inputGroupFileAddon01">
                             <label id="fileInputlabel" class="custom-file-label" for="inputGroupFileAddon01">Izaberi fajl</label>

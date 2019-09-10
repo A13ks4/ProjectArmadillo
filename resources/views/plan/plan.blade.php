@@ -68,54 +68,76 @@
         })
     }
 </script>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-lg-10 col-md-12">
             <div class="card">
-                <div class="card-header">Dashboard</div>
-
+                <div class="card-header">
+                    <nav class="navbar">
+                        <ul class="navbar-nav mr-auto">
+                            <span class="navbar-brand">Planovi (rute)</span>
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            @can('create', App\Plan::class)
+                                <a href="/plan/create" class="btn btn-primary">Novi plan</a>
+                            @endcan
+                        </ul>
+                    </nav>
+                </div>
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <div>
-                        <span>Plans go here</span>
-                        <br>
-                        
-                        <form action="/search" method="GET">
-                        @csrf
-                            <select name="alphabetical" id="alphabetical">
+                <form action="/search" method="GET">
+                    @csrf
+                        <nav class="navbar">
+
+                            <div class="mr-2">
+                                <label for="price">Od: </label>
+                                <select name="city_from" id="from">
                                 <option value="0"></option>
-                                <option value="1">ASC</option>
-                                <option value="2">DSC</option>
-                            </select>
-
-                            <select name="city_from" id="from">
-                           <option value="0"></option>
-                            @foreach ($cities as $city)
-                                <option value="{{$city->id}}">{{$city->name}}</option>
-                            @endforeach
-                            </select>
-                            <select name="city_to" id="to">
-                            <option value="0"></option>
-                            @foreach ($cities as $city)
-                                <option value="{{$city->id}}">{{$city->name}}</option>
-                            @endforeach
-                            </select>
-                            <input type="date" name="date" id="date">
-                            <button class="btn search" type="submit">Search</button>
-                        </form>
-
-                        @can('create', App\Plan::class)<a href="/plan/create" class="btn btn-primary">+</a>@endcan
-                        <br>
-                        <div class="results">
-                            <table class="table table-striped table-hover"> 
-                            <tr><td>City from:</td><td>City to:</td><td>Price:</td><td>FreeSpace:</td><td>Time start:</td><td>Time end:</td></tr>
-                            @foreach ($plans as $plan)
-                            
-                                <tr><td>{{ $plan->city_from->name }}</td>
+                                @foreach ($cities as $city)
+                                    <option value="{{$city->id}}">{{$city->name}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="mr-4">
+                                <label for="price">Do: </label>
+                                <select name="city_to" id="to">
+                                <option value="0"></option>
+                                @foreach ($cities as $city)
+                                    <option value="{{$city->id}}">{{$city->name}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="mr-4">
+                                <label for="price">Dan: </label>
+                                <input type="date" name="date" id="date">
+                            </div>
+                            <div class="mr-4">
+                                <label for="price">Cena: </label>
+                                <select name="alphabetical" id="alphabetical">
+                                    <option value="1">Rastuce</option>
+                                    <option value="2">Opadajuce</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button style="width:70px" class="btn search" type="submit">Search</button>
+                            </div>
+                        </nav>
+                    </form>
+                    <div class="results">
+                        <table class="table table-striped table-hover table-fixe"> 
+                            <tr>
+                                <th scope="col">Od</th>
+                                <th scope="col">Do</th>
+                                <th scope="col">Polazak</th>
+                                <th scope="col">Dolazak</th>
+                                <th scope="col">Datum</th>
+                                <th scope="col">Cena</th>
+                                <th scope="col">Slobodno</th>
+                                <th scope="col"></th>
+                            </tr>
+                        @foreach ($plans as $plan)
+                            <tr>
+                                <td>{{ $plan->city_from->name }}</td>
                                 <td>{{ $plan->city_to->name }}</td>
                                 <td>{{$cities[4]->streets}}
                                 <select name="street" id="street">
@@ -133,21 +155,27 @@
                                 <td>{{ $plan->time_start }}</td>
                                 <td>{{ $plan->time_end }}</td>
                                 <td>{{ $plan->date }}</td>
-                                <td> <form action="{{url('reservation')}}" method="POST">
-                                @csrf
-                                    
-                                    <input type="hidden" name="plan_id" value="{{$plan->id}}">
-                                    <button class="reserve" type="submit" value="{{$plan->id}}">reserve</button>
-                                </form>
+                                <td>{{ $plan->price }}</td>
+                                <td>{{ $plan->space }}</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">
+                                            <form action="{{url('reservation')}}" method="POST">
+                                            @csrf
+                                                <input type="hidden" name="plan_id" value="{{$plan->id}}">
+                                                <button style="width:75px" class="reserve btn btn-success" type="submit" value="{{$plan->id}}">reserve</button>
+                                            </form>
+                                            @can('update',$plan)
+                                                <button style="width:45px" class="btn btn-secondary" href="plan/{{$plan->id}}/edit">
+                                                    <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
+                                                </button>
+                                            @endcan
+                                        </td>
+                                    </td>
                                 </td>
-                                @can('update',$plan)
-                                <td><a href="plan/{{$plan->id}}/edit">edit</a></td>
-                                @endcan
-                                </tr>
-                            @endforeach
-                            </table>
-                            {{ $plans->links() }}
-                        </div>
+                            </tr>
+                        @endforeach
+                        </table>
                     </div>
                 </div>
             </div>
@@ -155,5 +183,4 @@
     </div>
 </div>
 <div class="added" style="background:green; display:none; border: 1px solid black; position:absolute; bottom:0; right:0; width: 200px; ">Reserved</div>
-
 @endsection
