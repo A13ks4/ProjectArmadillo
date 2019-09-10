@@ -18,7 +18,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $vehicles = Vehicle::all();
+        $vehicles = Vehicle::paginate(5);
         return view('vehicle/vehicle', compact('vehicles'));
     }
 
@@ -121,7 +121,9 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        $vehicle = Vehicle::findorFail($id);
+   
+        $vehicle = Vehicle::find($id);
         $vehicle->delete();
+        return redirect('vehicle');
     }
 }
