@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     public function plan(){
-        return  $this->hasMany("App\Plan");
+        return  $this->belongsTo("App\Plan");
     }
     public function vehicle(){
         return $this->belongsTo('App\Vehicle');
