@@ -147,11 +147,13 @@
                                 <td>
                                     <div class="row">
                                         <div class="col">
+                                            @unless (Auth::user()->can('create', App\Plan::class))
                                             <form action="{{url('reservation')}}" method="POST">
                                             @csrf
                                                 <input type="hidden" name="plan_id" value="{{$plan->id}}">
                                                 <button style="width:75px" class="reserve btn btn-success" type="submit" value="{{$plan->id}}">reserve</button>
                                             </form>
+                                            @endunless
                                             @can('update',$plan)
                                                 <button style="width:45px" class="btn btn-secondary" href="plan/{{$plan->id}}/edit">
                                                     <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
