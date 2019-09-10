@@ -115,6 +115,7 @@
                             <div class="mr-4">
                                 <label for="price">Cena: </label>
                                 <select name="alphabetical" id="alphabetical">
+                                    <option value="1"></option>
                                     <option value="1">Rastuce</option>
                                     <option value="2">Opadajuce</option>
                                 </select>
