@@ -139,6 +139,19 @@
                             <tr>
                                 <td>{{ $plan->city_from->name }}</td>
                                 <td>{{ $plan->city_to->name }}</td>
+                                <td>{{$cities[4]->streets}}
+                                <select name="street" id="street">
+                                
+                                   
+
+                                    @foreach($cities[$plan->city_id_to-1]->streets as $street)
+                                        <option value="{{$street->id}}">{{$street->name}}</option>
+                                       
+                                    @endforeach
+                                </select>
+                                </td>
+                                <td>{{ $plan->price }}</td>
+                                <td>{{ $plan->space }}</td>
                                 <td>{{ $plan->time_start }}</td>
                                 <td>{{ $plan->time_end }}</td>
                                 <td>{{ $plan->date }}</td>

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Plan;
+use App\Vehicle;
 class ScheduleController extends Controller
 {
 
@@ -19,7 +20,8 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $schedules = Schedule::all();
+        return view('schedule/schedule',compact('schedules'));
     }
 
     /**
@@ -29,7 +31,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        //
+        return view("schedule/schedulecreate");
     }
 
     /**
@@ -40,7 +42,22 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([  
+            'plan_id' => 'required',
+            'vehicle_id' => 'required',
+            'driver_id' => 'required'
+        ]);
+        $v = Vehicle::find($data['vehicle_id']);
+        $pl = Plan::find($data['plan_id']);
+        $p->space = $p->space + $v->seats_number;
+        $p->save();
+
+        $schedule = new Schedule;
+        $schedule->driver_id = $data['driver_id'];
+        $schedule->plan_id = $data['plan_id'];
+        $schedule->vehicle_id = $data['vehicle_id'];
+        $schedule->save();
+
     }
 
     /**
@@ -85,6 +102,8 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vehicle = Schedule::find($id);
+        $vehicle->delete();
+        return redirect('schedule');
     }
 }
