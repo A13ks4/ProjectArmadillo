@@ -83,7 +83,7 @@ class PlanController extends Controller
         $data = $request->validate([
             'city_id_from' => 'required',
             'city_id_to' => 'required',
-            'schedule' => 'required',
+            
             'date' => 'required',
             'space' => 'required',
             'time_start' => 'required',
@@ -93,7 +93,7 @@ class PlanController extends Controller
         $plan = new Plan;
         $plan->city_id_from = $data['city_id_from'];
         $plan->city_id_to = $data['city_id_to'];
-        $plan->schedule_id = $data['schedule'];
+       
         $plan->date = $data['date'];
         $plan->space = $data['space'];
         $plan->time_start = $data['time_start'];

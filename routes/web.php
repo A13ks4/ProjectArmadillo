@@ -27,6 +27,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/search', 'PlanController@search');
 Route::resource('/plan', 'PlanController');
+Route::resource('/user', 'PlanController');
 Route::resource('/reservation', 'ReservationController');
 Route::resource('/city', 'CityController');
 Route::resource('/street', 'StreetController');
