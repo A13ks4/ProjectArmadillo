@@ -11,6 +11,8 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
-        factory(App\City::class, 5)->create();
+        factory(App\City::class, 5)->create()->each(function($c) {
+            $c->streets()->sync(App\Street::all()->random(3));
+        });;
     }
 }

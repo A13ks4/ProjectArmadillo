@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             StreetSeeder::class,
             VehicleSeeder::class,
             ScheduleSeeder::class,
+            CitySeeder::class,
             PlanSeeder::class,
         ]);
     }

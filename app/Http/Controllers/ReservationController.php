@@ -44,7 +44,7 @@ class ReservationController extends Controller
         $data = $request->validate([
             
             'plan_id' => 'required',
-            
+            'street' => 'required'
         ]);
         $pl = Plan::find($data['plan_id']);
         if($pl != null && $pl->space == 0){
@@ -59,6 +59,7 @@ class ReservationController extends Controller
         $reservation = new Reservation;
         $reservation->user_id = auth()->user()->id;
         $reservation->plan_id = $data['plan_id'];
+        $reservation->destination = $data['street'];
        
         $reservation->save();
         $plan = Plan::findOrFail($data['plan_id']);

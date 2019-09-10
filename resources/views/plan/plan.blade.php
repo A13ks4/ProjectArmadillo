@@ -53,12 +53,13 @@
         $(".reserve").click(function(ev){
             ev.preventDefault();  
             var plan_id = $(this).val();
-            
+            var street = $('#street'+plan_id).val();
+
             $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             type: "POST",
             url:    "/reservation",
-            data: {plan_id:plan_id},
+            data: {plan_id:plan_id, street: street},
             success: function(data){
                 $(".added").html(data);
                 $(".added").fadeIn(500);
@@ -139,14 +140,10 @@
                             <tr>
                                 <td>{{ $plan->city_from->name }}</td>
                                 <td>{{ $plan->city_to->name }}</td>
-                                <td>{{$cities[4]->streets}}
-                                <select name="street" id="street">
-                                
-                                   
-
+                                <td>
+                                <select name="street" id="street{{$plan->id}}">
                                     @foreach($cities[$plan->city_id_to-1]->streets as $street)
-                                        <option value="{{$street->id}}">{{$street->name}}</option>
-                                       
+                                        <option value="{{$street->name}}">{{$street->name}}</option>      
                                     @endforeach
                                 </select>
                                 </td>
@@ -156,7 +153,7 @@
                                 <td>{{ $plan->time_end }}</td>
                                 <td>{{ $plan->date }}</td>
                                 <td>{{ $plan->price }}</td>
-                                <td>{{ $plan->space }}</td>
+
                                 <td>
                                     <div class="row">
                                         <div class="col">
