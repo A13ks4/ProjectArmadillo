@@ -32,4 +32,5 @@ class Plan extends Model
     public function city_to(){
         return $this->belongsTo('App\City', 'city_id_to');
     }
+    
 }
