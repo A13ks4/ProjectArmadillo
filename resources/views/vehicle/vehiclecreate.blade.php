@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Novo vozilo</div>
                 <div class="card-body">
-                    <form action="/vehicle" method="POST">
+                    <form action="/vehicle" enctype="multipart/form-data" method="POST">
                     @csrf
                         <span>Br. reg-tablica:</span>
                         <input type="text" class="form-control" name="plate_number" ><br>
@@ -21,7 +21,7 @@
                         <input type="number" value="2" class="form-control" name="seats_number" ><br>
                         <span>Slika:</span> <!-- Ili link do slike nzm sta cemo -->
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="fileInput" onChange="test()" aria-describedby="inputGroupFileAddon01">
+                            <input type="file" name="image"  class="custom-file-input" id="fileInput" onChange="test()" aria-describedby="inputGroupFileAddon01">
                             <label id="fileInputlabel" class="custom-file-label" for="inputGroupFileAddon01">Izaberi fajl</label>
                         </div> <br> <br>
                         <div class="row justify-content-center">
