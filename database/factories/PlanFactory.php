@@ -12,8 +12,8 @@ $factory->define(Plan::class, function (Faker $faker) {
         'time_end' => $faker->time('H:i:s'),
         'price' => $faker->numberBetween(100, 1000),
         'space' => $faker->numberBetween(2, 8),
-        'city_id_from' => function(){ return factory(App\City::class)->create()->id; },
-        'city_id_to' => function(){ return factory(App\City::class)->create()->id; },
+        'city_id_from' => $faker->numberBetween(1, 5),
+        'city_id_to' => $faker->numberBetween(1, 5),
         'schedule_id' => function(){ return factory(App\Schedule::class)->create()->id; },
     ];
 });
