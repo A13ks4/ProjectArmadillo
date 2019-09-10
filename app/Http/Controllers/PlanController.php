@@ -67,8 +67,9 @@ class PlanController extends Controller
      */
     public function create()
     {
+        $cities = City::all();
         $this->authorize('create',Plan::class);
-        return view('plan/plancreate');
+        return view('plan/plancreate',compact('cities'));
     }
 
     /**

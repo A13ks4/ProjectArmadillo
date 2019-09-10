@@ -12,11 +12,17 @@
                         <span>Od:</span> <br>
                         <select class="form-control" name="city_from" id="from">
                         <option value="0"></option>
+                        @foreach($cities as $city)
+                        <option value="{{$city->id}}">{{$city->name}}</option>
+                        @endforeach
                         <!-- FOREACH CITY -->
                         </select>
                         <span>Do:</span> <br>
                         <select class="form-control" name="city_to" id="to">
                         <option value="0"></option>
+                        @foreach($cities as $city)
+                        <option value="{{$city->id}}">{{$city->name}}</option>
+                        @endforeach
                         <!-- FOREACH CITY -->
                         </select>
                         <span>Polazak:</span>
