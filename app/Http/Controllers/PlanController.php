@@ -38,7 +38,7 @@ class PlanController extends Controller
      */
     public function search(Request $request){
 
-        $plans = Plan::join('cities','plans.city_id_from','=','cities.id')->with("city_from", "city_to");
+        $plans = Plan::with("city_from", "city_to")->select("plans.*")->join('cities','cities.id','=','plans.city_id_from');
         if($request->alphabetical == 1)
             $plans = $plans->orderBy("cities.name");
         if($request->alphabetical == 2)
@@ -53,7 +53,7 @@ class PlanController extends Controller
         }
         
         
-        $plans = $plans->paginate(2); 
+        $plans = $plans->paginate(5); 
            
         $html = View::make("pagination", compact('plans'));
         return  Response::json($html->render());

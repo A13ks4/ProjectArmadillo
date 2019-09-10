@@ -46,7 +46,8 @@ class ReservationController extends Controller
             'plan_id' => 'required',
             
         ]);
-        if(Plan::findOrFail($data['plan_id'])->space == 0){
+        $pl = Plan::find($data['plan_id']);
+        if($pl != null && $pl->space == 0){
             return "No more free space";
         }
         

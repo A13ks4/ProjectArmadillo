@@ -13,6 +13,6 @@ $factory->define(Vehicle::class, function (Faker $faker) {
         'color' => $faker->colorName,
         'plate_number' => $faker->vehicleRegistration,
         'seats_number' => $faker->numberBetween(5,7),
-        'img' => $faker->image(),
+        'img' => "https://img.freeauctiondesigns.com/morexauto/gallery6.jpg",
     ];
 });
