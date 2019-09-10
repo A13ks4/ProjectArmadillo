@@ -56,9 +56,7 @@
                         </tr>
                     @endforeach 
                     </table>
-<<<<<<< HEAD
                     {{$vehicles->links()}}
-=======
                     <div id="popup" class="modal container">
                         <div class="modal-content animate">
                             <div class="imgcontainer">
@@ -74,7 +72,6 @@
                             </div>
                         </div>
                     </div>
->>>>>>> 2461008d3b56c73fb2799b1e44f1b3fffff6d37c
                 </div>
             </div>
         </div>
