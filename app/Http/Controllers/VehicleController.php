@@ -47,7 +47,7 @@ class VehicleController extends Controller
             'color' => 'required',
             'plate_number' => 'required',
             'seats_number' => 'required',
-            'img' => '',
+            'image' => 'required|image|mimes:jpeg,png,jpg',
         ]);
         $vehicle = new Vehicle;
         $vehicle->brand = $data['brand'];
@@ -55,7 +55,8 @@ class VehicleController extends Controller
         $vehicle->color = $data['color'];
         $vehicle->plate_number = $data['plate_number'];
         $vehicle->seats_number = $data['seats_number'];
-        $vehicle->img = "https://img.freeauctiondesigns.com/morexauto/gallery6.jpg";
+        $imagePath = $request->file('image')->store("uploads", "public");
+        $vehicle->img = "storage/".$imagePath;
         $vehicle->save();
         return redirect('vehicle'); 
     }
