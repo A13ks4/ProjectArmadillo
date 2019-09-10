@@ -77,7 +77,7 @@
                                 </a>
                                 @endif
                                 @if (Auth::user()->can('create', App\User::class))
-                                <a href="#" class="list-group-item list-group-item-action bg-light">
+                                <a href="{{ url('/user') }}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/person.svg') }}">
                                     <span class="sideitem" style="sb-show">Klijenti</span>
                                 </a>

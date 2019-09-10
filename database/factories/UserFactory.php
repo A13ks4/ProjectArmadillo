@@ -22,7 +22,7 @@ $factory->define(User::class, function (Faker $faker) {
         'lastname' => $faker->lastName,
         'phone_number' => $faker->phoneNumber,
         'gender' => $gender,
-        'img' => $faker->image(),
+        'img' => "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
         'city_id' => $faker->randomDigitNotNull,
         'street_id' => $faker->randomDigitNotNull,
         'date_of_birth' => $faker->date('Y-m-d H:i:s'),

@@ -49,9 +49,12 @@ class User extends Authenticatable
     }
 
     public function isAdmin(){
-        return $this->level == 3;// Number 3 is admin, driver would be 2 and end user would be 1
+        return $this->level == 3; // Number 3 is admin, driver would be 2 and end user would be 1
     }
     public function isDriver(){
         return $this->level == 2;
+    }
+    public function isClient(){
+        return $this->level == 1;
     }
 }
