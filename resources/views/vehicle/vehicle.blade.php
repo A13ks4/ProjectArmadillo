@@ -18,7 +18,7 @@
                     </nav>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-sm table-hover"> 
+                    <table class="table table-striped table-hover">
                         <tr>
                             <th scope="col"></th>
                             <th scope="col">Br. reg-tablica</th>
@@ -38,7 +38,7 @@
                             <td>{{$vehicle->seats_number}}</td>
                         @can('create', $vehicle)
                             <td>
-                                <a href="#"> <!-- Mozda bude pop-up -->
+                                <a href="#" onclick="vehicle = {{$vehicle}}; showpopup()"> <!-- Mozda bude pop-up -->
                                     <img class="mr-2 mb-1" width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
                                 </a>
                                 <a href="/vehicle/{{$vehicle->id}}/edit">
@@ -52,9 +52,33 @@
                         </tr>
                     @endforeach 
                     </table>
+                    <div id="popup" class="modal container">
+                        <div class="modal-content animate">
+                            <div class="imgcontainer">
+                                <span onclick="document.getElementById('popup').style.display='none'" class="close" title="Close Modal">&times;</span>
+                                <img id="popupimg" width="280px" height="280px" src="" alt="none" class="rounded-circle">
+                            </div>
+                            <div class="container">
+                                <div class="text-center mb-4">
+                                    <h3 id="popupbrand"></h3>
+                                    <h5 id="popupmodel"></h2>
+                                </div>
+                                <button onclick="document.getElementById('popup').style.display='none'">Zatvori</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
+@endsection 
+<script>
+    var vehicle;
+    function showpopup() {
+        document.getElementById('popup').style.display= 'block';
+        document.getElementById('popupimg').src = vehicle.img;
+        document.getElementById('popupbrand').innerHTML = vehicle.brand;
+        document.getElementById('popupmodel').innerHTML = vehicle.model;
+    }
+</script>

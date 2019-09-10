@@ -18,7 +18,7 @@
                         <span>Boja:</span>
                         <input type="text" class="form-control" name="color" ><br>
                         <span>Br. sedista:</span>
-                        <input type="number" value="1" class="form-control" name="seats_number" ><br>
+                        <input type="number" value="2" class="form-control" name="seats_number" ><br>
                         <span>Slika:</span> <!-- Ili link do slike nzm sta cemo -->
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="fileInput" onChange="test()" aria-describedby="inputGroupFileAddon01">
