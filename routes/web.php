@@ -31,6 +31,7 @@ Route::post('/upgradeUser/{id}', 'UserController@upgradeUser');
 Route::resource('/plan', 'PlanController');
 Route::resource('/user', 'UserController');
 Route::resource('/reservation', 'ReservationController');
+Route::resource('/schedule', 'ScheduleController');
 Route::resource('/city', 'CityController');
 Route::resource('/street', 'StreetController');
 Route::resource('/vehicle', 'VehicleController');
