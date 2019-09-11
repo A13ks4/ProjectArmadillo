@@ -1,68 +1,96 @@
 @extends('layouts.app')
 
 @section('content')
-<script>
- $(function(){
-     $(".reserve").click(function(){
-    $(".added").fadeIn();
-    $(".added").fadeOut(1000);
- });
- })
-</script>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-lg-10 col-md-12">
             <div class="card">
-                <div class="card-header">Dashboard</div>
-
+                <div class="card-header">
+                    <nav class="navbar">
+                        <ul class="navbar-nav mr-auto">
+                            <span class="navbar-brand">Vozni park</span>
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            @can('create', App\reservation::class)
+                                <a href="/reservation/create" class="btn btn-primary">Novo vozilo</a>
+                            @endcan
+                        </ul>
+                    </nav>
+                </div>
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    <div>
-                        <span>Plans go here</span>
-                        <br>
-                        
-                        <form action="/search" method="GET">
-                        @csrf
-                            <select name="city_from" id="">
-                           <?php $cities = App\City::all();?>
-                            @foreach ($cities as $city)
-                                <option value="{{$city->id}}">{{$city->name}}</option>
-                            @endforeach
-                            </select>
-                            <select name="city_to" id="">
-                           <?php $cities = App\City::all();?>
-                            @foreach ($cities as $city)
-                                <option value="{{$city->id}}">{{$city->name}}</option>
-                            @endforeach
-                            </select>
-                            <button class="btn" type="submit">Search</button>
-                        </form>
-
-                        @can('create', App\Plan::class)<a href="/plan/create" class="btn btn-primary">+</a>@endcan
-                        <br>
-                        <table class="table table-striped table-hover"> 
-                        <tr><td>User:</td><td>Plan:</td><td>Vehicle:</td></tr>
-                        @foreach ($reservations as $reservation)
-                           @can('view',$reservation) <!-- Samo odlucuje za drivera i usera koje da prikaze, admin vidi sve -->
-                            <tr><td>{{ $reservation->user_id }}</td>
-                            <td>{{ $reservation->plan_id }}</td>
-                            <td>{{ $reservation->plan->schedule->vehicle->brand }}</td>
+                    <table class="table table-striped table-hover">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Korisnik</th>
+                            <th scope="col">Plan</th>
+                            <th scope="col">Startna lokacija</th>
+                            <th scope="col">Destinacija</th>
                             
-                           @endcan
-                           
-                            </tr>
-                        @endforeach
-                        </table>
+                            <th scope="col"></th>
+                        </tr>
+                    @foreach($reservations as $reservation)
+                    @can('view',$reservation)
+                        <tr>
+                            <td class="text-center"><img class="rounded-circle" width="35px" height="35px" src="{{$reservation->img}}" alt="none"></td>
+                            <td>{{$reservation->user->firstname}}</td>
+                            <td>{{$reservation->plan->city_from->name}} - {{$reservation->plan->city_to->name}}</td>
+                            <td>{{$reservation->start_location}}</td>
+                            <td>{{$reservation->destination}}</td>
+                            
+                        @can('create', $reservation)
+                            <td>
+                                <div class="row">
+                                    <div class="col">
+                                        <a class="mr-2" href="#" onclick="reservation = {{$reservation}}; showpopup()">
+                                            <img width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
+                                        </a>
+                                        <a class="mr-2" href="/reservation/{{$reservation->id}}/edit">
+                                            <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
+                                        </a>
+                                        <a class="mr-2" href="{{url('reservation/'.$reservation->id)}}" onclick="event.preventDefault(); $('#delete-form{{$reservation->id}}').submit()">
+                                            <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
+                                        </a>  
+                                    </div>
+                                    <form id="delete-form{{$reservation->id}}" action="/reservation/{{$reservation->id}}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                    </form>
+                                </div>
+                            </td>
+                        @endcan
+                        </tr>
+                    @endcan
+                    @endforeach 
+                    </table>
+                    
+                    {{$reservations->links()}}
+                    <div id="popup" class="modal container">
+                        <div class="modal-content animate">
+                            <div class="imgcontainer">
+                                <span onclick="document.getElementById('popup').style.display='none'" class="close" title="Close Modal">&times;</span>
+                                <img id="popupimg" width="280px" height="280px" src="" alt="none" class="rounded-circle">
+                            </div>
+                            <div class="container">
+                                <div class="text-center mb-4">
+                                    <h3 id="popupbrand"></h3>
+                                    <h5 id="popupmodel"></h2>
+                                </div>
+                                <button onclick="document.getElementById('popup').style.display='none'">Zatvori</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="added" style="background:green; display:none; border: 1px solid black; position:absolute; bottom:0; right:0; width: 200px; ">Reserved</div>
-
-@endsection
+@endsection 
+<script>
+    var reservation;
+    function showpopup() {
+        document.getElementById('popup').style.display= 'block';
+        document.getElementById('popupimg').src = reservation.img;
+        document.getElementById('popupbrand').innerHTML = reservation.brand;
+        document.getElementById('popupmodel').innerHTML = reservation.model;
+    }
+</script>

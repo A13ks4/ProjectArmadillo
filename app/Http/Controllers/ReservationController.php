@@ -19,7 +19,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::all();
+        $reservations = Reservation::paginate(5);
         return view('reservation/reservation',compact('reservations'));
     }
 

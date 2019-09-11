@@ -10,12 +10,7 @@ class ReservationPolicy
 {
     use HandlesAuthorization;
 
-    public function before($user, $ability)
-    {
-        if ($user->isAdmin()) {
-            return true;
-        }
-    }
+    
 
     /**
      * Determine whether the user can view the reservation.
@@ -29,15 +24,20 @@ class ReservationPolicy
         return $user->id == $reservation->user_id; //Prikazuje samo rezervacije od trenutno logovanog usera
     }
 
+    public function create(User $user)
+    {
+        return $user->isAdmin();
+    }
+
     /**
      * Determine whether the user can create reservations.
      *
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function reserve(User $user)
     {
-        return $user->isAdmin();
+        return $user->isClient() && !$user->isAdmin();
     }
 
     /**

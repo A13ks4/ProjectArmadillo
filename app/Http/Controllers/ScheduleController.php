@@ -128,8 +128,13 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
-        $vehicle = Schedule::find($id);
-        $vehicle->delete();
+        $schedule = Schedule::find($id);
+
+        $plan = Plan::findOrFail($schedule->plan_id);
+        $plan->space = $plan->space - $schedule->vehicle->seats_number+1;
+        $plan->save();
+
+        $schedule->delete();
         return redirect('schedule');
     }
 }

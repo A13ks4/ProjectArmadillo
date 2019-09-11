@@ -29,6 +29,11 @@ class SchedulePolicy
         return $user->id == $schedule->driver_id;
     }
 
+    public function see(User $user)
+    {
+        return $user->isAdmin() || $user->isDriver();
+    }
+
     /**
      * Determine whether the user can create schedules.
      *
