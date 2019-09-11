@@ -22,6 +22,11 @@ class UserController extends Controller
         return view('user/user', compact('users'));
     }
 
+    public function employees(){
+        $employees = User::where("level","2")->get();
+        return view('user/employees',compact('employees'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
