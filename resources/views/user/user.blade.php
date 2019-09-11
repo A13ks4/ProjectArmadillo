@@ -54,7 +54,7 @@
                                         @csrf
                                     </form>
                                     <form id="upgrade-form{{$user->id}}" action="/upgradeUser/{{$user->id}}" method="POST">
-                                        @method('UPGRADE')
+                                       
                                         @csrf
                                     </form>
                                 </div>
