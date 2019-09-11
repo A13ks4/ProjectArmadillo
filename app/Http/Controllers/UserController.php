@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -60,7 +64,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('userupdate',compact('$user'));
+        return view('userupdate',compact('user'));
     }
 
     /**

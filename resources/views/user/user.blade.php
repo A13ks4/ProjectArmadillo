@@ -36,22 +36,27 @@
                             <td>
                                 <div class="row">
                                     <div class="col">
-                                        <button style="width:45px" class="btn btn-primary" href="#" onclick="user = {{$user}}; showpopup()">
+                                        <a href="#" onclick="user = {{$user}}; showpopup()">
                                             <img width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
-                                        </button>
-                                        <button style="width:45px" class="btn btn-secondary" href="/user/{{$user->id}}/edit">
+                                        </a>
+                                        <a href="/user/{{$user->id}}/edit">
                                             <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
-                                        </button>
+                                        </a>
                                     </div>
                                     <div class="col">
                                         <form action="/user/{{$user->id}}" method="POST">
                                             @method('DELETE')
                                             @csrf
-                                            <button style="width:45px" class="btn btn-danger">
+                                            <a href="{{url('user/'.$user->id)}}" onclick="event.preventDefault(); 
+                                                            $('#delete-form').submit()">
                                                 <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
-                                            </button>
+                                            </a>
                                         </form>
                                     </div>
+                                    <form id="delete-form" action="/user/{{$user->id}}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                    </form>
                                 </div>
                             </td>
                         @endcan

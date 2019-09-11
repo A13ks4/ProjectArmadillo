@@ -40,28 +40,30 @@
                             <td>
                                 <div class="row">
                                     <div class="col">
-                                        <button style="width:45px" class="btn btn-primary" href="#" onclick="vehicle = {{$vehicle}}; showpopup()">
+                                        <a href="#" onclick="vehicle = {{$vehicle}}; showpopup()">
                                             <img width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
-                                        </button>
-                                        <button style="width:45px" class="btn btn-secondary" href="/vehicle/{{$vehicle->id}}/edit">
+                                        </a>
+                                        <a href="/vehicle/{{$vehicle->id}}/edit">
                                             <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
-                                        </button>
+                                        </a>
                                     </div>
-                                    <div class="col">
-                                        <form action="/vehicle/{{$vehicle->id}}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button style="width:45px" class="btn btn-danger">
+                                    <div class="col"> 
+                                            <a href="{{url('vehicle/'.$vehicle->id)}}" onclick="event.preventDefault(); 
+                                                            $('#delete-form').submit()">
                                                 <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
-                                            </button>
-                                        </form>
+                                            </a>    
                                     </div>
+                                    <form id="delete-form" action="/vehicle/{{$vehicle->id}}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                    </form>
                                 </div>
                             </td>
                         @endcan
                         </tr>
                     @endforeach 
                     </table>
+                    
                     {{$vehicles->links()}}
                     <div id="popup" class="modal container">
                         <div class="modal-content animate">
