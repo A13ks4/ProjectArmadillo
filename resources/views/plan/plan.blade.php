@@ -167,6 +167,7 @@
                             </tr>
                         @endforeach
                         </table>
+                        {{$plans->links()}}
                     </div>
                 </div>
             </div>

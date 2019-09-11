@@ -10,25 +10,25 @@
                     <form action="/plan" enctype="multipart/form-data" method="POST">
                     @csrf
                         <span>Od:</span> <br>
-                        <select class="form-control" name="city_from" id="from">
+                        <select class="form-control" name="city_id_from" id="from">
                         <option value="0"></option>
                         @foreach($cities as $city)
                         <option value="{{$city->id}}">{{$city->name}}</option>
                         @endforeach
                         </select>
                         <span>Do:</span> <br>
-                        <select class="form-control" name="city_to" id="to">
+                        <select class="form-control" name="city_id_to" id="to">
                         <option value="0"></option>
                         @foreach($cities as $city)
                         <option value="{{$city->id}}">{{$city->name}}</option>
                         @endforeach
                         </select>
                         <span>Polazak:</span>
-                        <input type="time" class="form-control" name="model" ><br>
+                        <input type="time" class="form-control" name="time_start" ><br>
                         <span>Dolazak:</span>
-                        <input type="time" class="form-control" name="color" ><br>
+                        <input type="time" class="form-control" name="time_end" ><br>
                         <span>Datum:</span>
-                        <input type="date" class="form-control" name="seats_number" ><br>
+                        <input type="date" class="form-control" name="date" ><br>
                         <span>Cena:</span>
                         <input type="number" class="form-control" name="price" value="0"><br>
                         <div class="row justify-content-center">
