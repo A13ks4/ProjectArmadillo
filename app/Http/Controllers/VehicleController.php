@@ -82,7 +82,7 @@ class VehicleController extends Controller
     {
         $vehicle = Vehicle::findOrFail($id);
         $this->authorize('update',$vehicle);
-        return view('vehicleupdate',compact('vehicle'));
+        return view('vehicle/vehicleupdate',compact('vehicle'));
     }
 
     /**
@@ -100,7 +100,7 @@ class VehicleController extends Controller
             'color' => 'required',
             'plate_number' => 'required',
             'seats_number' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg',
+            'image' => 'image|mimes:jpeg,png,jpg',
         ]);
         $vehicle = Vehicle::findOrFail($id);
         $vehicle->brand = $data['brand'];
@@ -108,8 +108,10 @@ class VehicleController extends Controller
         $vehicle->color = $data['color'];
         $vehicle->plate_number = $data['plate_number'];
         $vehicle->seats_number = $data['seats_number'];
-        $imagePath = $request->file('image')->store("uploads", "public");
-        $vehicle->img = "storage/".$imagePath;
+        if ($request->has('image')) {
+            $imagePath = $request->file('image')->store("uploads", "public");
+            $vehicle->img = "storage/".$imagePath;
+        }
         $vehicle->save();
         return redirect('vehicle');
     }
