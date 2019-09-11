@@ -28,6 +28,7 @@
                             <th scope="col"></th>
                         </tr>
                         @foreach($schedules as $schedule)
+                        @can('view', $schedule)
                             <tr>
                                 <td><img class="rounded-circle mr-2" width="35px" height="35px" src="{{$schedule->driver->img}}" alt="none"> {{$schedule->driver->firstname}} {{$schedule->driver->lastname}}</td>
                                 <td>{{$schedule->plan->city_from->name}} - {{$schedule->plan->city_to->name}}</td>
@@ -52,6 +53,7 @@
                                     </td>
                                 @endcan
                             </tr>
+                        @endcan
                         @endforeach 
                     </table>
                     {{$schedules->links()}}
