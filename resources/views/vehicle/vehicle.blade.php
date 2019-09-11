@@ -46,11 +46,11 @@
                                         <a class="mr-2" href="/vehicle/{{$vehicle->id}}/edit">
                                             <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
                                         </a>
-                                        <a class="mr-2" href="{{url('vehicle/'.$vehicle->id)}}" onclick="event.preventDefault(); $('#delete-form').submit()">
+                                        <a class="mr-2" href="{{url('vehicle/'.$vehicle->id)}}" onclick="event.preventDefault(); $('#delete-form{{$vehicle->id}}').submit()">
                                             <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
                                         </a>  
                                     </div>
-                                    <form id="delete-form" action="/vehicle/{{$vehicle->id}}" method="POST">
+                                    <form id="delete-form{{$vehicle->id}}" action="/vehicle/{{$vehicle->id}}" method="POST">
                                         @method('DELETE')
                                         @csrf
                                     </form>
