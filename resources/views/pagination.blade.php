@@ -35,9 +35,9 @@ $(function(){
                     </form>
                     @endunless
                     @can('update',$plan)
-                        <button style="width:45px" class="btn btn-secondary" href="plan/{{$plan->id}}/edit">
-                            <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
-                        </button>
+                    <a class="mr-2" href="/plan/{{$plan->id}}/edit">
+                        <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
+                    </a>
                     @endcan
                 </td>
             </td>

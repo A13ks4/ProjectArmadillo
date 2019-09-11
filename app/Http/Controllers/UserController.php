@@ -52,7 +52,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([  
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'phone_number' => 'required',
+            'email' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg',
+        ]);
+
+        $user = User::find($id);
+        $user->firstname = $data['firstname'];
+        $user->lastname = $data['lastname'];
+        $user->phone_number = $data['phone_number'];
+        $user->email = $data['email'];
+        if ($request->has('image')) {
+            $imagePath = $request->file('image')->store("uploads", "public");
+            $user->img = "storage/".$imagePath;
+        }
+        //$user->gender = $data['gender'];
+        //$user->level = $data['level'];
+        //$user->city_id = $data['city_id'];
+        //$user->street_id = $data['street_id'];
+        //$user->date_of_birth = $data['date_of_birth'];
+        $user->save();
+        return redirect('user');
     }
 
     /**
@@ -76,7 +99,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('userupdate',compact('user'));
+        return view('user/userupdate', compact('user'));
     }
 
     /**
@@ -92,27 +115,24 @@ class UserController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'phone_number' => 'required',
-            'gender' => 'required',
-            'img' => 'required',
-            'level' => 'required',
-            'city_id' => 'required',
-            'street_id' => 'required',
-            'date_of_birth' => 'required',
             'email' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg',
         ]);
 
         $user = User::find($id);
         $user->firstname = $data['firstname'];
         $user->lastname = $data['lastname'];
         $user->phone_number = $data['phone_number'];
-        $user->gender = $data['gender'];
-        $imagePath = $request->file('image')->store("uploads", "public");
-        $user->img = $imagePath;
-        $user->level = $data['level'];
-        $user->city_id = $data['city_id'];
-        $user->street_id = $data['street_id'];
-        $user->date_of_birth = $data['date_of_birth'];
         $user->email = $data['email'];
+        if ($request->has('image')) {
+            $imagePath = $request->file('image')->store("uploads", "public");
+            $user->img = "storage/".$imagePath;
+        }
+        //$user->gender = $data['gender'];
+        //$user->level = $data['level'];
+        //$user->city_id = $data['city_id'];
+        //$user->street_id = $data['street_id'];
+        //$user->date_of_birth = $data['date_of_birth'];
         $user->save();
         return redirect('user');
     }
