@@ -118,11 +118,11 @@ class PlanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        
+    {   
         $plan = Plan::findOrFail($id);
+        $cities = City::all();
         $this->authorize('update',$plan);
-        return view('plan/planupdate', compact('plan'));
+        return view('plan/planupdate', compact('plan','cities'));
     }
 
     /**
@@ -137,7 +137,6 @@ class PlanController extends Controller
         $data = $request->validate([
             'city_id_from' => 'required',
             'city_id_to' => 'required',
-            'schedule' => 'required',
             'date' => 'required',
             'time_start' => 'required',
             'time_end' => 'required',
@@ -146,7 +145,6 @@ class PlanController extends Controller
         $plan = Plan::findOrFail($id);
         $plan->city_id_from = $data['city_id_from'];
         $plan->city_id_to = $data['city_id_to'];
-        $plan->schedule = $data['schedule'];
         $plan->date = $data['date'];
         $plan->time_start = $data['time_start'];
         $plan->time_end = $data['time_end'];

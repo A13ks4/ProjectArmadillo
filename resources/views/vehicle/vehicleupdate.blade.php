@@ -8,7 +8,7 @@
                 <div class="card-header">Izmena vozila</div>
                 <div class="card-body">
                     <div class="imgcontainer">
-                        <img id="popupimg" width="150px" height="150px" src="{{$vehicle->img}}" alt="none" class="rounded-circle">
+                        <img id="popupimg" width="100px" height="100px" src="@if($vehicle->isImgLocal()) ../../{{$vehicle->img}} @else {{$vehicle->img}} @endif" alt="none" class="rounded-circle">
                     </div>
                     <form action="/vehicle/{{$vehicle->id}}" enctype="multipart/form-data" method="POST">
                     @csrf
@@ -31,7 +31,7 @@
                         <div class="row justify-content-center">
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Promeni') }}
+                                    {{ __('Izmeni') }}
                                 </button>
                             </div>
                         </div>

@@ -11,14 +11,14 @@
                     @csrf
                         <span>Od:</span> <br>
                         <select class="form-control" name="city_id_from" id="from">
-                        <option value="0"></option>
+                        <option value=""></option>
                         @foreach($cities as $city)
                         <option value="{{$city->id}}">{{$city->name}}</option>
                         @endforeach
                         </select>
                         <span>Do:</span> <br>
                         <select class="form-control" name="city_id_to" id="to">
-                        <option value="0"></option>
+                        <option value=""></option>
                         @foreach($cities as $city)
                         <option value="{{$city->id}}">{{$city->name}}</option>
                         @endforeach

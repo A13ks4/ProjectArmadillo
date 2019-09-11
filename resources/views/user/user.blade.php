@@ -54,7 +54,6 @@
                                         @csrf
                                     </form>
                                     <form id="upgrade-form{{$user->id}}" action="/upgradeUser/{{$user->id}}" method="POST">
-                                       
                                         @csrf
                                     </form>
                                 </div>
@@ -73,8 +72,8 @@
                             </div>
                             <div class="container">
                                 <div class="text-center mb-4">
-                                    <h3 id="popupbrand"></h3>
-                                    <h5 id="popupmodel"></h2>
+                                    <h3 id="popupname"></h3>
+                                    <h5 id="popupemail"></h2>
                                 </div>
                                 <button onclick="document.getElementById('popup').style.display='none'">Zatvori</button>
                             </div>
@@ -91,7 +90,7 @@
     function showpopup() {
         document.getElementById('popup').style.display= 'block';
         document.getElementById('popupimg').src = user.img;
-        document.getElementById('popupbrand').innerHTML = user.firstname + " " + user.lastname;
-        document.getElementById('popupmodel').innerHTML = user.lastname;
+        document.getElementById('popupname').innerHTML = user.firstname + " " + user.lastname;
+        document.getElementById('popupemail').innerHTML = user.email;
     }
 </script>

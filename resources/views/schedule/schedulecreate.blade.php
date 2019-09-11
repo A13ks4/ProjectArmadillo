@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-5 col-md-8">
             <div class="card">
-                <div class="card-header">Novo vozilo</div>
+                <div class="card-header">Novo zaduzenje</div>
                 <div class="card-body">
                     <form action="/schedule" method="POST">
                     @csrf

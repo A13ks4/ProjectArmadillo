@@ -21,7 +21,7 @@
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/popup.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
+    <link href="{{ asset('css/other.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -101,7 +101,7 @@
                         </button>
                         <ul class="navbar-nav ml-auto">
                             <div class="row ml-auto mr-4">
-                                <img class="rounded-circle" width="35px" height="35px" src="{{ Auth::user()->img }}" alt="">
+                                <img class="rounded-circle" width="35px" height="35px" src="@if(Auth::user()->isImgLocal()) ../../{{Auth::user()->img}} @else {{Auth::user()->img}} @endif" alt="">
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle ml-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}<span class="caret"></span>
@@ -109,9 +109,7 @@
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">
+                                        <a class="dropdown-item" href="/user/{{Auth::user()->id}}/edit">
                                             {{ __('Profil') }}
                                         </a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"

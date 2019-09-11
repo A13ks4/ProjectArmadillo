@@ -57,4 +57,8 @@ class User extends Authenticatable
     public function isClient(){
         return $this->level == 1;
     }
+
+    public function isImgLocal(){
+        return !(strpos($this->img, 'http') === 0);
+    }
 }
