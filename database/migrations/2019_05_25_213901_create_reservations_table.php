@@ -18,7 +18,7 @@ class CreateReservationsTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->integer('plan_id')->unsigned()->index();
             $table->string('destination')->nullable();
-            $table->text('description')->nullable();
+            $table->text('start_location')->nullable();
             $table->timestamps();
         });
     }
