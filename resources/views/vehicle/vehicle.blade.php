@@ -40,18 +40,15 @@
                             <td>
                                 <div class="row">
                                     <div class="col">
-                                        <a href="#" onclick="vehicle = {{$vehicle}}; showpopup()">
+                                        <a class="mr-2" href="#" onclick="vehicle = {{$vehicle}}; showpopup()">
                                             <img width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
                                         </a>
-                                        <a href="/vehicle/{{$vehicle->id}}/edit">
+                                        <a class="mr-2" href="/vehicle/{{$vehicle->id}}/edit">
                                             <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
                                         </a>
-                                    </div>
-                                    <div class="col"> 
-                                            <a href="{{url('vehicle/'.$vehicle->id)}}" onclick="event.preventDefault(); 
-                                                            $('#delete-form').submit()">
-                                                <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
-                                            </a>    
+                                        <a class="mr-2" href="{{url('vehicle/'.$vehicle->id)}}" onclick="event.preventDefault(); $('#delete-form').submit()">
+                                            <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
+                                        </a>  
                                     </div>
                                     <form id="delete-form" action="/vehicle/{{$vehicle->id}}" method="POST">
                                         @method('DELETE')
