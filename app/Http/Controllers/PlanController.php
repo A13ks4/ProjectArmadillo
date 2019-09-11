@@ -82,20 +82,17 @@ class PlanController extends Controller
     {
         $data = $request->validate([
             'city_id_from' => 'required',
-            'city_id_to' => 'required',
-            
+            'city_id_to' => 'required', 
             'date' => 'required',
-            'space' => 'required',
             'time_start' => 'required',
             'time_end' => 'required',
             'price' => 'required',
         ]);
         $plan = new Plan;
         $plan->city_id_from = $data['city_id_from'];
-        $plan->city_id_to = $data['city_id_to'];
-       
+        $plan->city_id_to = $data['city_id_to']; 
         $plan->date = $data['date'];
-        $plan->space = $data['space'];
+        $plan->space = 0;
         $plan->time_start = $data['time_start'];
         $plan->time_end = $data['time_end'];
         $plan->price = $data['price'];
