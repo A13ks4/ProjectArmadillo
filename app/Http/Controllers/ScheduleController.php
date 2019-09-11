@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Schedule;
 use App\Plan;
+use App\User;
 use App\Vehicle;
 class ScheduleController extends Controller
 {
@@ -20,7 +22,7 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::all();
+        $schedules = Schedule::paginate(5);
         return view('schedule/schedule',compact('schedules'));
     }
 
@@ -31,7 +33,10 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        return view("schedule/schedulecreate");
+        $plans = Plan::all();
+        $vehicles = Vehicle::all();
+        $employees = User::where('level',"2")->get();
+        return view("schedule/schedulecreate", compact('plans','vehicles','employees'));
     }
 
     /**
@@ -49,15 +54,15 @@ class ScheduleController extends Controller
         ]);
         $v = Vehicle::find($data['vehicle_id']);
         $pl = Plan::find($data['plan_id']);
-        $p->space = $p->space + $v->seats_number;
-        $p->save();
+        $pl->space = $pl->space + ($v->seats_number-1);//-1 za Vozaca
+        $pl->save();
 
         $schedule = new Schedule;
         $schedule->driver_id = $data['driver_id'];
         $schedule->plan_id = $data['plan_id'];
         $schedule->vehicle_id = $data['vehicle_id'];
         $schedule->save();
-
+        return redirect('schedule');
     }
 
     /**
@@ -79,7 +84,11 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $schedule = Schedule::findOrFail($id);
+        $plans = Plan::all();
+        $vehicles = Vehicle::all();
+        $employees = User::where('level',"2")->get();
+        return view('schedule/scheduleupdate', compact('schedule','plans','vehicles','employees'));
     }
 
     /**
@@ -91,7 +100,24 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([  
+            'plan_id' => 'required',
+            'vehicle_id' => 'required',
+            'driver_id' => 'required'
+        ]);
+        $schedule = Schedule::findOrFail($id);
+
+        $v = Vehicle::find($data['vehicle_id']);
+        $pl = Plan::find($data['plan_id']);
+        $pl->space = $pl->space - $schedule->vehicle->seats_number+1 + ($v->seats_number-1);//-1 za Vozaca
+        $pl->save();
+
+        
+        $schedule->driver_id = $data['driver_id'];
+        $schedule->plan_id = $data['plan_id'];
+        $schedule->vehicle_id = $data['vehicle_id'];
+        $schedule->save();
+        return redirect('schedule');
     }
 
     /**
