@@ -27,6 +27,13 @@ class UserController extends Controller
         return view('user/employees',compact('employees'));
     }
 
+    public function upgradeUser($id){
+        $user = User::find($id);
+        $user->level = 2;
+        $user->save();
+        return redirect('user');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
