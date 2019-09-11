@@ -29,6 +29,8 @@
                         <input type="time" class="form-control" name="color" ><br>
                         <span>Datum:</span>
                         <input type="date" class="form-control" name="seats_number" ><br>
+                        <span>Cena:</span>
+                        <input type="number" class="form-control" name="price" value="0"><br>
                         <div class="row justify-content-center">
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-primary">
