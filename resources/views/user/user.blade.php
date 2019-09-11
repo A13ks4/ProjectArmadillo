@@ -57,6 +57,7 @@
                         @endif
                     @endforeach 
                     </table>
+                    {{$users->links()}}
                     <div id="popup" class="modal container">
                         <div class="modal-content animate">
                             <div class="imgcontainer">

@@ -18,12 +18,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(5);
         return view('user/user', compact('users'));
     }
 
     public function employees(){
-        $employees = User::where("level","2")->get();
+        $employees = User::where("level","2")->paginate(5);
         return view('user/employees',compact('employees'));
     }
 

@@ -64,6 +64,7 @@
                        
                     @endforeach 
                     </table>
+                    {{$employees->links()}}
                     <div id="popup" class="modal container">
                         <div class="modal-content animate">
                             <div class="imgcontainer">
