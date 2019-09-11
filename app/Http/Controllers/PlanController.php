@@ -40,9 +40,9 @@ class PlanController extends Controller
 
         $plans = Plan::with("city_from", "city_to")->select("plans.*")->join('cities','cities.id','=','plans.city_id_from');
         if($request->alphabetical == 1)
-            $plans = $plans->orderBy("cities.name");
+            $plans = $plans->orderBy("price");
         if($request->alphabetical == 2)
-            $plans = $plans->orderBy("cities.name","desc");
+            $plans = $plans->orderBy("price","desc");
 
         if(!empty($request->city_from))
             $plans = $plans->where("city_id_from",$request->city_from);

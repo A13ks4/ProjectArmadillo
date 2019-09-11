@@ -11,7 +11,7 @@ $factory->define(Plan::class, function (Faker $faker) {
         'time_start' => $faker->time('H:i:s'),
         'time_end' => $faker->time('H:i:s'),
         'price' => $faker->numberBetween(100, 1000),
-        'space' => $faker->numberBetween(2, 8),
+        'space' => 0,
         'city_id_from' => $faker->numberBetween(1, 5),
         'city_id_to' => $faker->numberBetween(1, 5),
     ];

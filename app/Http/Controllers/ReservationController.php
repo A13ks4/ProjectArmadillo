@@ -89,7 +89,9 @@ class ReservationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $reservation = Reservation::findOrFail($id);
+        $this->authorize('update',$reservation);
+        return view('reservation/reservationupdate');
     }
 
     /**
@@ -101,7 +103,19 @@ class ReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            
+            'plan_id' => 'required',
+            'street' => 'required',
+            'start_location' => 'required',
+        ]);
+
+        $reservation = Reservation::findOrFail($id);
+        $reservation->user_id = auth()->user()->id;
+        $reservation->plan_id = $data['plan_id'];
+        $reservation->destination = $data['street'];
+        $reservation->start_location = $data['start_location'];     
+        $reservation->save();
     }
 
     /**
@@ -112,6 +126,7 @@ class ReservationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $plan = Reservation::findOrFail($id);
+        $plan->delete();
     }
 }
