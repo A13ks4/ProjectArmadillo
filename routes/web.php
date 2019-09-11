@@ -27,7 +27,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/search', 'PlanController@search');
 Route::get('/employees', 'UserController@employees');
-Route::post('/upgradeUser', 'UserController@upgradeUser');
+Route::post('/upgradeUser/{id}', 'UserController@upgradeUser');
 Route::resource('/plan', 'PlanController');
 Route::resource('/user', 'UserController');
 Route::resource('/reservation', 'ReservationController');
