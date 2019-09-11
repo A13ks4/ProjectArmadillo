@@ -8,7 +8,12 @@
                 <div class="card-header">
                     <nav class="navbar">
                         <ul class="navbar-nav mr-auto">
-                            <span class="navbar-brand">Klijenti</span>
+                            <span class="navbar-brand">Zaposleni</span>
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            @can('update', App\User::class)
+                                <a href="/user" class="btn btn-primary"><img class="mr-2 mb-1" width="15px" height="15px" src="{{ asset('svg/briefcase.svg') }}">Zaposli korisnika</a>
+                            @endcan
                         </ul>
                     </nav>
                 </div>
@@ -23,46 +28,41 @@
                             <th scope="col">E-mail</th>
                             <th scope="col"></th>
                         </tr>
-                    @foreach($employees as $employee)
+                    @if ($employees->isEmpty())
                         
-                        <tr>
-                            <td>{{$employee->id}}</td>
-                            <td><img class="rounded-circle" width="35px" height="35px" src="{{$employee->img}}" alt="none"></td>
-                            <td>{{$employee->firstname}}</td>
-                            <td>{{$employee->lastname}}</td>
-                            <td>{{$employee->phone_number}}</td>
-                            <td>{{$employee->email}}</td>
-                        @can('create', $employee)
-                            <td>
-                                <div class="row">
-                                    <div class="col">
-                                        <a href="#" onclick="user = {{$employee}}; showpopup()">
-                                            <img width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
-                                        </a>
-                                        <a href="/user/{{$employee->id}}/edit">
-                                            <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
-                                        </a>
-                                    </div>
-                                    <div class="col">
-                                        <form action="/user/{{$employee->id}}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <a href="{{url('user/'.$employee->id)}}" onclick="event.preventDefault(); 
-                                                            $('#delete-form').submit()">
+                    @else
+                        @foreach($employees as $employee)
+                            <tr>
+                                <td>{{$employee->id}}</td>
+                                <td><img class="rounded-circle" width="35px" height="35px" src="{{$employee->img}}" alt="none"></td>
+                                <td>{{$employee->firstname}}</td>
+                                <td>{{$employee->lastname}}</td>
+                                <td>{{$employee->phone_number}}</td>
+                                <td>{{$employee->email}}</td>
+                            @can('create', $employee)
+                                <td>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a class="mr-2" href="#" onclick="user = {{$employee}}; showpopup()">
+                                                <img width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
+                                            </a>
+                                            <a class="mr-2" href="/user/{{$employee->id}}/edit">
+                                                <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
+                                            </a>
+                                            <a class="mr-2" href="{{url('user/'.$employee->id)}}" onclick="event.preventDefault(); $('#delete-form').submit()">
                                                 <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
                                             </a>
+                                        </div>
+                                        <form id="delete-form" action="/user/{{$employee->id}}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
                                         </form>
                                     </div>
-                                    <form id="delete-form" action="/user/{{$employee->id}}" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                    </form>
-                                </div>
-                            </td>
-                        @endcan
-                        </tr>
-                       
-                    @endforeach 
+                                </td>
+                            @endcan
+                            </tr>
+                        @endforeach
+                    @endif
                     </table>
                     {{$employees->links()}}
                     <div id="popup" class="modal container">

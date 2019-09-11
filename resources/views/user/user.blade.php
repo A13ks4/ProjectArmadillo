@@ -45,6 +45,9 @@
                                         <a class="mr-2" href="{{url('user/'.$user->id)}}" onclick="event.preventDefault(); $('#delete-form{{$user->id}}').submit()">
                                             <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
                                         </a>
+                                        <a class="mr-2 ml-4" href="{{url('user/'.$user->id)}}" onclick="">
+                                            <img width="15px" height="15px" src="{{ asset('svg/briefcase.svg') }}">
+                                        </a>
                                     </div>
                                     <form id="delete-form{{$user->id}}" action="/user/{{$user->id}}" method="POST">
                                         @method('DELETE')
