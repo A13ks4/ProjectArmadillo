@@ -36,22 +36,15 @@
                             <td>
                                 <div class="row">
                                     <div class="col">
-                                        <a href="#" onclick="user = {{$user}}; showpopup()">
+                                        <a class="mr-2" href="#" onclick="user = {{$user}}; showpopup()">
                                             <img width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
                                         </a>
-                                        <a href="/user/{{$user->id}}/edit">
+                                        <a class="mr-2" href="/user/{{$user->id}}/edit">
                                             <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
                                         </a>
-                                    </div>
-                                    <div class="col">
-                                        <form action="/user/{{$user->id}}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <a href="{{url('user/'.$user->id)}}" onclick="event.preventDefault(); 
-                                                            $('#delete-form').submit()">
-                                                <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
-                                            </a>
-                                        </form>
+                                        <a class="mr-2" href="{{url('user/'.$user->id)}}" onclick="event.preventDefault(); $('#delete-form').submit()">
+                                            <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
+                                        </a>
                                     </div>
                                     <form id="delete-form" action="/user/{{$user->id}}" method="POST">
                                         @method('DELETE')
