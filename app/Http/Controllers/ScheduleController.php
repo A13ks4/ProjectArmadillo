@@ -20,9 +20,13 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $schedules = Schedule::paginate(5);
+        if($request->ajax()){
+            $html = \View::make('schedule/scheduletable',compact('schedules'));
+            return \Response::json($html->render());
+        }
         return view('schedule/schedule',compact('schedules'));
     }
 

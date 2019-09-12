@@ -17,9 +17,13 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $reservations = Reservation::paginate(5);
+        if($request->ajax()){
+            $html = \View::make('reservation/reservationtable',compact('reservation'));
+            return \Response::json($html->render());
+        }
         return view('reservation/reservation',compact('reservations'));
     }
 
@@ -53,12 +57,12 @@ class ReservationController extends Controller
         ]);
         $pl = Plan::find($data['plan_id']);
         if($pl != null && $pl->space == 0){
-            return "No more free space";
+            return "<div class='alert-danger py-4 text-center'>Nema vise slobodnih mesta!</div>";
         }
         
         //Proverava da li postoji rezervacija sa id plana i id usera
         if(Reservation::where("plan_id",$data['plan_id'])->where("user_id",auth()->user()->id)->exists()){
-            return "Plan already reserved ";
+            return "<div class='alert-warning py-4 text-center'>Vec ste rezervisali!</div>";
         }
         
         $reservation = new Reservation;
@@ -71,7 +75,7 @@ class ReservationController extends Controller
         $plan = Plan::findOrFail($data['plan_id']);
         $plan->space =  $plan->space - 1;
         $plan->save();
-        return "successfuly added plan num: ".$reservation->plan_id;
+        return "<div class='alert-success py-4 text-center'>Uspesno ste rezervisali!</div>";
     }
 
     /**

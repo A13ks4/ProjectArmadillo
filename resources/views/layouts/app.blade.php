@@ -21,7 +21,6 @@
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/popup.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/other.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">

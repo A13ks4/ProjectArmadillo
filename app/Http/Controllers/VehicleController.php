@@ -16,9 +16,13 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $vehicles = Vehicle::paginate(5);
+        if($request->ajax()){
+            $html = \View::make('vehicle/vehicletable',compact('vehicles'));
+            return \Response::json($html->render());
+        }
         return view('vehicle/vehicle', compact('vehicles'));
     }
 

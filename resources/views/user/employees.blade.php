@@ -1,6 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+ function Pagnation(){
+    $(".page-link").click(function(ev){
+        ev.preventDefault();  
+        
+        var page = $(this).attr('href').split('page=')[1];
+        
+        $.ajax({
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: "GET",
+        url:    "/employees?page="+page,
+        dataType: "text json",
+        
+        success: function(data){
+            
+            $(".results").html("");
+            $(".results").append(data);
+        }
+        });
+    })
+ }
+</script>
 <div class="container-fluid">
     <div class="row ">
         <div class="col-lg-10 col-md-12">
@@ -18,53 +40,7 @@
                     </nav>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped table-hover">
-                        <tr>
-                            <th scope="col">#id</th>
-                            <th scope="col">Slika</th>
-                            <th scope="col">Ime</th>
-                            <th scope="col">Prezime</th>
-                            <th scope="col">Telefon</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col"></th>
-                        </tr>
-                    @if ($employees->isEmpty())
-                        
-                    @else
-                        @foreach($employees as $employee)
-                            <tr>
-                                <td>{{$employee->id}}</td>
-                                <td><img class="rounded-circle" width="35px" height="35px" src="{{$employee->img}}" alt="none"></td>
-                                <td>{{$employee->firstname}}</td>
-                                <td>{{$employee->lastname}}</td>
-                                <td>{{$employee->phone_number}}</td>
-                                <td>{{$employee->email}}</td>
-                            @can('create', $employee)
-                                <td>
-                                    <div class="row">
-                                        <div class="col">
-                                            <a class="mr-2" href="#" onclick="user = {{$employee}}; showpopup()">
-                                                <img width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
-                                            </a>
-                                            <a class="mr-2" href="/user/{{$employee->id}}/edit">
-                                                <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
-                                            </a>
-                                            <a class="mr-2" href="{{url('user/'.$employee->id)}}" onclick="event.preventDefault(); $('#delete-form').submit()">
-                                                <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
-                                            </a>
-                                        </div>
-                                        <form id="delete-form" action="/user/{{$employee->id}}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                        </form>
-                                    </div>
-                                </td>
-                            @endcan
-                            </tr>
-                        @endforeach
-                    @endif
-                    </table>
-                    {{$employees->links()}}
+                   <div class="results">@include('user/employeestable')</div>
                     <div id="popup" class="modal container">
                         <div class="modal-content animate">
                             <div class="imgcontainer">

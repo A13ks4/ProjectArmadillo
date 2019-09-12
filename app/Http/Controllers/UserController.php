@@ -16,14 +16,22 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $users = User::where("level","1")->paginate(5);
+        if($request->ajax()){
+            $html = \View::make('user/usertable',compact('users'));
+            return \Response::json($html->render());
+        }
         return view('user/user', compact('users'));
     }
 
-    public function employees(){
+    public function employees(Request $request){
         $employees = User::where("level","2")->paginate(5);
+        if($request->ajax()){
+            $html = \View::make('user/employeetable',compact('employees'));
+            return \Response::json($html->render());
+        }
         return view('user/employees',compact('employees'));
     }
 

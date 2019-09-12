@@ -1,6 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+$(function(){
+    Reserve();
+});
+ function Reserve(){
+        $(".reserve").click(function(ev){
+            ev.preventDefault();  
+            var plan_id = $('#plan_id').val();
+            var start_location = $('#start_location').val();
+            var destination = $('#destination').val();
+
+            $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type: "POST",
+            url:    "/reservation",
+            data: {plan_id:plan_id, start_location: start_location, destination:destination},
+            success: function(data){
+                $(".added").html(data);
+                $(".added").fadeIn(500);
+                $(".added").fadeOut(1500);
+            }
+            });
+        })
+    }
+</script>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-5 col-md-8">
@@ -10,7 +35,7 @@
                     <form action="/reservation" enctype="multipart/form-data" method="POST">
                     @csrf
                         <span>Od:</span> <br>
-                        <input type="number" class="form-control" name="plan_id" value="{{ $plan->id }}" readonly hidden>
+                        <input type="number" class="form-control" id="plan_id" name="plan_id" value="{{ $plan->id }}" readonly hidden>
                         <input type="text" class="form-control" value="{{ $plan->city_from->name }}" readonly><br>
                         <span>Polazna ulica:</span> <br>
                         <select class="form-control" name="start_location" id="start_location">
@@ -36,12 +61,15 @@
                         <input type="text" class="form-control" value="{{ $plan->price }}" readonly><br><br>
                         <div class="row justify-content-center">
                             <div class="col-auto">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary reserve">
                                     {{ __('Rezervisite') }}
                                 </button>
                             </div>
                         </div>
                     </form>
+                    <div class="added">
+                    
+                    </div>
                 </div>
             </div>
         </div>
