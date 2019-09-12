@@ -35,23 +35,35 @@ class ReservationController extends Controller
         $reservations = Reservation::all();
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $section = $phpWord->addSection();
+        $phpWord->addTitleStyle(1,array("size"=>16,"align"=>"center"));
         $section->addTitle("Rezervacije");
+        
         foreach($reservations as $reservation){
-            
-            $section->addText("Rezervacija br: ".$reservation->id);
-            $section->addText("Ime: ".$reservation->user->firstname);
-            $section->addText("Prezime: ".$reservation->user->lastname);
-            $section->addText("Od: ".$reservation->plan->city_from->name);
-            $section->addText("Do: ".$reservation->plan->city_to->name);
+            $table = $section->addTable('cool table',array("borderSize"=>3, "borderColor"=>"006699",'cellMargin' => 80));
+            $table->addRow();
+            $table->addCell(1000,array('valign' => 'center'))->addText("ID: ");
+            $table->addCell(2000,array('valign' => 'center'))->addText($reservation->id);
+            $table->addCell(1000,array('valign' => 'center'))->addText("Ime: ");
+            $table->addCell(2000,array('valign' => 'center'))->addText($reservation->user->firstname);
+            $table->addCell(1000,array('valign' => 'center'))->addText("Prezime: ");
+            $table->addCell(2000,array('valign' => 'center'))->addText($reservation->user->lastname);
+            $table->addRow();
+            $table->addCell(1000,array('valign' => 'center'))->addText("Od: ");
+            $table->addCell(2000,array('valign' => 'center'))->addText($reservation->plan->city_from->name.", ".$reservation->start_location);
+            $table->addCell(1000,array('valign' => 'center'))->addText("Do: ");
+            $table->addCell(2000,array('valign' => 'center'))->addText($reservation->plan->city_to->name.", ".$reservation->destination);
+            $table->addCell(1000,array('valign' => 'center'))->addText("Datum: ");
+            $table->addCell(2000,array('valign' => 'center'))->addText($reservation->plan->date);
+            $section->addTextBreak();
         }
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
         try {
-            $objWriter->save(storage_path('helloWorld.docx'));
+            $objWriter->save(storage_path('rezervacije.docx'));
         } catch (Exception $e) {
         }
 
 
-        return response()->download(storage_path('helloWorld.docx'));
+        return response()->download(storage_path('rezervacije.docx'));
     } 
 
     public function reserve($id){
