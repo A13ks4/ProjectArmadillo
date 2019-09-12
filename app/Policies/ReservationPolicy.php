@@ -37,7 +37,7 @@ class ReservationPolicy
      */
     public function reserve(User $user)
     {
-        return $user->isClient() && !$user->isAdmin();
+        return $user->isClient();
     }
 
     /**
