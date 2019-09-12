@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Reservation;
 use App\Plan;
 
-use Knp\Snappy\Pdf;
+
 class ReservationController extends Controller
 {
 
@@ -32,6 +32,14 @@ class ReservationController extends Controller
     }
 
     public function export_pdf(){
+        $reservations = Reservation::all();
+
+        $pdf = \PDF::loadView('reservation/pdf',compact('reservations'));
+        return $pdf->download("rezervacije.pdf");
+
+    } 
+
+    public function export_word(){
         $reservations = Reservation::all();
         $phpWord = new \PhpOffice\PhpWord\PhpWord();
         $section = $phpWord->addSection();
@@ -64,7 +72,7 @@ class ReservationController extends Controller
 
 
         return response()->download(storage_path('rezervacije.docx'));
-    } 
+    }
 
     public function reserve($id){
         $plan = Plan::findOrFail($id);
