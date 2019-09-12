@@ -17,9 +17,13 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $reservations = Reservation::paginate(5);
+        if($request->ajax()){
+            $html = \View::make('reservation/reservationtable',compact('reservation'));
+            return \Response::json($html->render());
+        }
         return view('reservation/reservation',compact('reservations'));
     }
 

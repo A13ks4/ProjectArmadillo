@@ -1,6 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+ function Pagnation(){
+    $(".page-link").click(function(ev){
+        ev.preventDefault();  
+        
+        var page = $(this).attr('href').split('page=')[1];
+        
+        $.ajax({
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: "GET",
+        url:    "/schedule?page="+page,
+        dataType: "text json",
+        
+        success: function(data){
+            
+            $(".results").html("");
+            $(".results").append(data);
+        }
+        });
+    })
+ }
+</script>
 <div class="container-fluid">
     <div class="row ">
         <div class="col-lg-10 col-md-12">
@@ -17,46 +39,8 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="card-body">
-                    <table class="table table-striped table-hover">
-                        <tr>
-                            <th scope="col">Vozac:</th>
-                            <th scope="col">Relacija:</th>
-                            <th scope="col">Polazak:</th>
-                            <th scope="col">Vozilo:</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                        </tr>
-                        @foreach($schedules as $schedule)
-                        @can('view', $schedule)
-                            <tr>
-                                <td><img class="rounded-circle mr-2" width="35px" height="35px" src="{{$schedule->driver->img}}" alt="none"> {{$schedule->driver->firstname}} {{$schedule->driver->lastname}}</td>
-                                <td>{{$schedule->plan->city_from->name}} - {{$schedule->plan->city_to->name}}</td>
-                                <td>{{$schedule->plan->time_start}}</td>
-                                <td>{{$schedule->vehicle->brand}} {{$schedule->vehicle->model}}</td> 
-                                @can('create', $schedule)
-                                    <td>
-                                        <div class="row">
-                                            <div class="col">
-                                                <a class="mr-2" href="/schedule/{{$schedule->id}}/edit">
-                                                    <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
-                                                </a>
-                                                <a class="mr-2" href="{{url('schedule/'.$schedule->id)}}" onclick="event.preventDefault(); $('#delete-form{{$schedule->id}}').submit()">
-                                                    <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
-                                                </a>  
-                                            </div>
-                                            <form id="delete-form{{$schedule->id}}" action="/schedule/{{$schedule->id}}" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </td>
-                                @endcan
-                            </tr>
-                        @endcan
-                        @endforeach 
-                    </table>
-                    {{$schedules->links()}}
+                <div class="card-body"><div class="results">@include('schedule/scheduletable')</div>
+                    
                 </div>
             </div>
         </div>

@@ -1,6 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+ function Pagnation(){
+    $(".page-link").click(function(ev){
+        ev.preventDefault();  
+        
+        var page = $(this).attr('href').split('page=')[1];
+        
+        $.ajax({
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        type: "GET",
+        url:    "/vehicle?page="+page,
+        dataType: "text json",
+        
+        success: function(data){
+            
+            $(".results").html("");
+            $(".results").append(data);
+        }
+        });
+    })
+ }
+</script>
 <div class="container-fluid">
     <div class="row ">
         <div class="col-lg-10 col-md-12">
@@ -17,51 +39,8 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="card-body">
-                    <table class="table table-striped table-hover">
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Br. reg-tablica</th>
-                            <th scope="col">Brend</th>
-                            <th scope="col">Model</th>
-                            <th scope="col">Boja</th>
-                            <th scope="col">Br. sedista</th>
-                            <th scope="col"></th>
-                        </tr>
-                    @foreach($vehicles as $vehicle)
-                        <tr>
-                            <td class="text-center"><img class="rounded-circle" width="35px" height="35px" src="{{$vehicle->img}}" alt="none"></td>
-                            <td>{{$vehicle->plate_number}}</td>
-                            <td>{{$vehicle->brand}}</td>
-                            <td>{{$vehicle->model}}</td>
-                            <td>{{$vehicle->color}}</td>
-                            <td class=" " >{{$vehicle->seats_number}}</td>
-                        @can('create', $vehicle)
-                            <td>
-                                <div class="row">
-                                    <div class="col">
-                                        <a class="mr-2" href="#" onclick="vehicle = {{$vehicle}}; showpopup()">
-                                            <img width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
-                                        </a>
-                                        <a class="mr-2" href="/vehicle/{{$vehicle->id}}/edit">
-                                            <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
-                                        </a>
-                                        <a class="mr-2" href="{{url('vehicle/'.$vehicle->id)}}" onclick="event.preventDefault(); $('#delete-form{{$vehicle->id}}').submit()">
-                                            <img width="15px" height="15px" src="{{ asset('svg/minus.svg') }}">
-                                        </a>  
-                                    </div>
-                                    <form id="delete-form{{$vehicle->id}}" action="/vehicle/{{$vehicle->id}}" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                    </form>
-                                </div>
-                            </td>
-                        @endcan
-                        </tr>
-                    @endforeach 
-                    </table>
+                <div class="card-body"><div class="results">@include('vehicle/vehicletable')</div>
                     
-                    {{$vehicles->links()}}
                     <div id="popup" class="modal container">
                         <div class="modal-content animate">
                             <div class="imgcontainer">
