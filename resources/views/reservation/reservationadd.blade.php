@@ -15,7 +15,7 @@
                         <span>Polazna ulica:</span> <br>
                         <select class="form-control" name="start_location" id="start_location">
                             @foreach($plan->city_from->streets as $street)
-                                <option value="{{$street->id}}">{{$street->name}}</option>
+                                <option value="{{$street->name}}">{{$street->name}}</option>
                             @endforeach
                         </select><br>
                         <span>Do:</span> <br>
@@ -23,7 +23,7 @@
                         <span>Destinacija</span> <br>
                         <select class="form-control" name="destination" id="destination">
                             @foreach($plan->city_to->streets as $street)
-                                <option value="{{$street->id}}">{{$street->name}}</option>
+                                <option value="{{$street->name}}">{{$street->name}}</option>
                             @endforeach
                         </select><br>
                         <span>Datum:</span> <br>

@@ -8,35 +8,24 @@
                 <div class="card-header">
                     <nav class="navbar">
                         <ul class="navbar-nav mr-auto">
-                            <span class="navbar-brand">Vozni park</span>
-                        </ul>
-                        <ul class="navbar-nav ml-auto">
-                            @can('create', App\reservation::class)
-                                <a href="/reservation/create" class="btn btn-primary">Novo vozilo</a>
-                            @endcan
+                            <span class="navbar-brand">Rezervacije</span>
                         </ul>
                     </nav>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped table-hover">
                         <tr>
-                            <th scope="col"></th>
                             <th scope="col">Korisnik</th>
-                            <th scope="col">Plan</th>
                             <th scope="col">Startna lokacija</th>
                             <th scope="col">Destinacija</th>
-                            
                             <th scope="col"></th>
                         </tr>
                     @foreach($reservations as $reservation)
-                    @can('view',$reservation)
+                    @can('view', $reservation)
                         <tr>
-                            <td class="text-center"><img class="rounded-circle" width="35px" height="35px" src="{{$reservation->img}}" alt="none"></td>
-                            <td>{{$reservation->user->firstname}}</td>
-                            <td>{{$reservation->plan->city_from->name}} - {{$reservation->plan->city_to->name}}</td>
-                            <td>{{$reservation->start_location}}</td>
-                            <td>{{$reservation->destination}}</td>
-                            
+                            <td>{{$reservation->user->firstname}} {{$reservation->user->lastname}}</td>
+                            <td>{{$reservation->plan->city_from->name}}, {{$reservation->start_location}}</td>
+                            <td>{{$reservation->plan->city_to->name}}, {{$reservation->destination}}</td>
                         @can('create', $reservation)
                             <td>
                                 <div class="row">
