@@ -15,4 +15,7 @@ class Schedule extends Model
     public function driver(){
         return $this->belongsTo('App\User');
     }
+    public function reservations(){
+        return $this->hasMany("App\Reservation");
+    }
 }

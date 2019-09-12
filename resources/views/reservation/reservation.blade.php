@@ -32,6 +32,7 @@
                         <ul class="navbar-nav mr-auto">
                             <span class="navbar-brand">Rezervacije</span>
                         </ul>
+                        <a href="{{ url('reservation/pdf') }}">Download PDF</a>
                     </nav>
                 </div>
                 <div class="card-body">
