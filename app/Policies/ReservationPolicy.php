@@ -21,7 +21,8 @@ class ReservationPolicy
      */
     public function view(User $user, Reservation $reservation)
     {
-        return $user->id == $reservation->user_id; //Prikazuje samo rezervacije od trenutno logovanog usera
+        // return $user->id == $reservation->user_id; // Prikazuje samo rezervacije od trenutno logovanog usera
+        return $user->isAdmin(); 
     }
 
     public function create(User $user)
