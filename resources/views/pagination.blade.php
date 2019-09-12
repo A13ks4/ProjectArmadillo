@@ -31,7 +31,7 @@ $(function(){
                     <form action="{{url('reservation')}}" method="POST">
                     @csrf
                         <input type="hidden" name="plan_id" value="{{$plan->id}}">
-                        <button style="width:75px" class="reserve btn btn-success" type="submit" value="{{$plan->id}}">reserve</button>
+                        <button style="width:100px;" class="reserve btn btn-success py-1" type="submit" value="{{$plan->id}}">Rezervišite</button>
                     </form>
                     @endcan
                     @can('update',$plan)

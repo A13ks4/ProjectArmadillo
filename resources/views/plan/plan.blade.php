@@ -120,7 +120,7 @@
                                 </select>
                             </div>
                             <div>
-                                <button style="width:70px" class="btn search" type="submit">Search</button>
+                                <button style="width:75px" class="btn search" type="submit">Pretraži</button>
                             </div>
                         </nav>
                     </form>
