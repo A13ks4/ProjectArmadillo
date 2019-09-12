@@ -9,7 +9,7 @@ class ReservationController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('admin')->except('index','store');
+        $this->middleware('admin')->except('index','store','reserve');
         $this->middleware('auth');
     }
     /**
@@ -47,10 +47,9 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            
             'plan_id' => 'required',
-            'street' => 'required',
             'start_location' => 'required',
+            'destination' => 'required',
         ]);
         $pl = Plan::find($data['plan_id']);
         if($pl != null && $pl->space == 0){
@@ -65,7 +64,7 @@ class ReservationController extends Controller
         $reservation = new Reservation;
         $reservation->user_id = auth()->user()->id;
         $reservation->plan_id = $data['plan_id'];
-        $reservation->destination = $data['street'];
+        $reservation->destination = $data['destination'];
         $reservation->start_location = $data['start_location'];     
         $reservation->save();
         

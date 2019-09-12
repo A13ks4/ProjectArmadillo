@@ -49,25 +49,6 @@
         });
     })
  }
- function Reserve(){
-        $(".reserve").click(function(ev){
-            ev.preventDefault();  
-            var plan_id = $(this).val();
-            var street = $('#street'+plan_id).val();
-
-            $.ajax({
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            type: "POST",
-            url:    "/reservation",
-            data: {plan_id:plan_id, street: street},
-            success: function(data){
-                $(".added").html(data);
-                $(".added").fadeIn(500);
-                $(".added").fadeOut(1500);
-            }
-            });
-        })
-    }
 </script>
 <div class="container-fluid">
     <div class="row ">

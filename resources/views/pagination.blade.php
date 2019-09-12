@@ -1,6 +1,5 @@
 <script>
 $(function(){
-    Reserve();
     Pagnation();
 });
 </script>
@@ -28,11 +27,7 @@ $(function(){
             <div class="row">
                 <div class="col">
                     @can('reserve', App\Reservation::class)
-                    <form action="{{url('reservation')}}" method="POST">
-                    @csrf
-                        <input type="hidden" name="plan_id" value="{{$plan->id}}">
-                        <button style="width:100px;" class="reserve btn btn-success py-1" type="submit" value="{{$plan->id}}">Rezervišite</button>
-                    </form>
+                    <a href="reservation/{{$plan->id}}/reserve" style="width:100px;" class="reserve btn btn-success py-1" type="submit">Rezervišite</a>
                     @endcan
                     @can('update',$plan)
                     <a class="mr-2" href="/plan/{{$plan->id}}/edit">
