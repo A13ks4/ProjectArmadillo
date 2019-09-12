@@ -23,6 +23,11 @@ class ReservationController extends Controller
         return view('reservation/reservation',compact('reservations'));
     }
 
+    public function reserve($id){
+        $plan = Plan::findOrFail($id);
+        return view('reservation/reservationadd',compact('plan'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
