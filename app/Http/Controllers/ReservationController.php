@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Reservation;
 use App\Plan;
+
+use Knp\Snappy\Pdf;
 class ReservationController extends Controller
 {
 
@@ -20,17 +22,43 @@ class ReservationController extends Controller
     public function index(Request $request)
     {
         $reservations = Reservation::paginate(5);
+        
         if($request->ajax()){
             $html = \View::make('reservation/reservationtable',compact('reservation'));
             return \Response::json($html->render());
         }
+
         return view('reservation/reservation',compact('reservations'));
     }
+
+    public function export_pdf(){
+        $reservations = Reservation::all();
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $section = $phpWord->addSection();
+        $section->addTitle("Rezervacije");
+        foreach($reservations as $reservation){
+            
+            $section->addText("Rezervacija br: ".$reservation->id);
+            $section->addText("Ime: ".$reservation->user->firstname);
+            $section->addText("Prezime: ".$reservation->user->lastname);
+            $section->addText("Od: ".$reservation->plan->city_from->name);
+            $section->addText("Do: ".$reservation->plan->city_to->name);
+        }
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        try {
+            $objWriter->save(storage_path('helloWorld.docx'));
+        } catch (Exception $e) {
+        }
+
+
+        return response()->download(storage_path('helloWorld.docx'));
+    } 
 
     public function reserve($id){
         $plan = Plan::findOrFail($id);
         return view('reservation/reservationadd',compact('plan'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

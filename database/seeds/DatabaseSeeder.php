@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             
             CitySeeder::class,
             PlanSeeder::class,
-            ScheduleSeeder::class,
+            
         ]);
     }
 }

@@ -12,4 +12,7 @@ class Reservation extends Model
     public function plan(){
         return $this->belongsTo("App\Plan");
     }
+    public function schedule(){
+        return $this->belongsTo("App\Schedule");
+    }
 }
