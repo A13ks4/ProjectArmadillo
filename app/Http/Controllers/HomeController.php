@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\City;
+use App\User;
+use App\Vehicle;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $users = User::where('level', '1')->count();
+        $drivers = User::where('level', '2')->count();
+        $vehicles = Vehicle::all()->count();
+        $seats = Vehicle::all()->sum('seats_number');
+        $cities = City::all();
+        return view('home', compact('users','drivers','vehicles','seats','cities'));
     }
 }
