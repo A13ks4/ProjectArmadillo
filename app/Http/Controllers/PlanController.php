@@ -52,7 +52,7 @@ class PlanController extends Controller
             $plans = $plans->where("date",$request->date);
         }
         
-        
+        \Log::info(auth()->user()->firstname." izvrsio pretragu planova");
         $plans = $plans->paginate(5); 
            
         $html = View::make("pagination", compact('plans'));

@@ -98,6 +98,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
+        \Log::info(auth()->user()->firstname.' je napravio novu rezervaciju');
         $data = $request->validate([
             'plan_id' => 'required',
             'start_location' => 'required',
@@ -105,11 +106,13 @@ class ReservationController extends Controller
         ]);
         $pl = Plan::find($data['plan_id']);
         if($pl != null && $pl->space == 0){
+            \Log::warning('Nema slobodnih mesta za rezervisanje');
             return "<div class='alert-danger py-4 text-center'>Nema vise slobodnih mesta!</div>";
         }
         
         //Proverava da li postoji rezervacija sa id plana i id usera
         if(Reservation::where("plan_id",$data['plan_id'])->where("user_id",auth()->user()->id)->exists()){
+            \Log::warning(auth()->user()->firstname.' pokusao istu rezervaciju da napravi');
             return "<div class='alert-warning py-4 text-center'>Vec ste rezervisali!</div>";
         }
         
