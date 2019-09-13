@@ -24,7 +24,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="row no-gutters">
+        <div style="position: relative; z-index:1;" class="row no-gutters">
             <div id="sidebar">
                 <div class="bg-light">
                     <div class="row mt-4 mb-4">
@@ -37,54 +37,54 @@
                             <div class="col">
                                 <a href="{{ url('/home') }}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/home.svg') }}">
-                                    <span class="sideitem" style="sb-show">Pocetna</span>
+                                    <span style="sb-show">Pocetna</span>
                                 </a>
                                 @if (Auth::user()->can('create', App\Vehicle::class))
                                 <a href="{{ url('/vehicle') }}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/car.svg') }}">
-                                    <span class="sideitem" style="sb-show">Vozila</span>
+                                    <span style="sb-show">Vozila</span>
                                 </a>
                                 @endif
                                 @if (Auth::user()->can('create', App\Plan::class))
                                 <a href="{{ url('/plan') }}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/map-marker.svg') }}">
-                                    <span class="sideitem" style="sb-show">Planovi</span>
+                                    <span style="sb-show">Planovi</span>
                                 </a>
                                 @endif
                                 @unless (Auth::user()->can('create', App\Vehicle::class))
                                 <a href="{{ url('/plan') }}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/clock.svg') }}">
-                                    <span class="sideitem" style="sb-show">Rezervisite voznju</span>
+                                    <span style="sb-show">Rezervisite voznju</span>
                                 </a>
                                 @endunless
                                 @unless (Auth::user()->can('create', App\Vehicle::class))
                                 <a href="{{ url('/reservation') }}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/book.svg') }}">
-                                    <span class="sideitem" style="sb-show">Vase rezervacije</span>
+                                    <span style="sb-show">Vase rezervacije</span>
                                 </a>
                                 @endunless
                                 @if (Auth::user()->can('create', App\User::class))
                                 <a href="{{url('employees')}}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/employee.svg') }}">
-                                    <span class="sideitem" style="sb-show">Zaposleni</span>
+                                    <span style="sb-show">Zaposleni</span>
                                 </a>
                                 @endif
                                 @if (Auth::user()->can('see', App\Schedule::class))
                                 <a href="{{url('/schedule')}}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/briefcase.svg') }}">
-                                    <span class="sideitem" style="sb-show">Zaduzenja</span>
+                                    <span style="sb-show">Zaduzenja</span>
                                 </a>
                                 @endif
                                 @if (Auth::user()->can('create', App\User::class))
                                 <a href="{{ url('/user') }}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/person.svg') }}">
-                                    <span class="sideitem" style="sb-show">Klijenti</span>
+                                    <span style="sb-show">Klijenti</span>
                                 </a>
                                 @endif
                                 @if (Auth::user()->can('create', App\Reservation::class))
                                 <a href="{{url('/reservation')}}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/book.svg') }}">
-                                    <span class="sideitem" style="sb-show">Rezervacije</span>
+                                    <span style="sb-show">Rezervacije</span>
                                 </a>
                                 @endif
                             </div>
@@ -95,8 +95,8 @@
             <div class="col">
                 <nav class="navbar navbar-expand navbar-light bg-white shadow-sm">
                     <div class="container-fluid">
-                        <button id="sidebutton" type="button">
-                        <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/menu.svg') }}">
+                        <button class="pl-0" id="sidebutton" onclick="openclosesidebar();">
+                            <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/menu.svg') }}">
                         </button>
                         <ul class="navbar-nav ml-auto">
                             <div class="row ml-auto mr-4">
@@ -133,4 +133,28 @@
         </div>
     </div>
 </body>
+<script>
+    var isOpened = false;
+    function openclosesidebar() {
+        if (!isOpened) {
+            document.getElementById('sidebar').style.display = 'block';
+            document.getElementById('sidebutton').style.marginLeft = '230px';
+            isOpened = true;
+        } else {
+            document.getElementById('sidebar').style.display = 'none';
+            document.getElementById('sidebutton').style.marginLeft = '0px';
+            isOpened = false;
+        }
+    }
+    function sidebarfix(x) {
+        if (x.matches) {
+            document.getElementById('sidebar').style.display = 'block';
+            document.getElementById('sidebutton').style.marginLeft = '230px';
+            isOpened = true;
+        }
+    }
+    var x = window.matchMedia("(max-width: 700px)");
+    sidebarfix(x);
+    x.addListener(sidebarfix);
+</script>
 </html>
