@@ -20,9 +20,6 @@ $(function(){
                 <td>
                     <div class="row">
                         <div class="col">
-                            <a class="mr-2" href="#" onclick="reservation = {{$reservation}}; showpopup()">
-                                <img width="15px" height="15px" src="{{ asset('svg/eye.svg') }}">
-                            </a>
                             <a class="mr-2" href="/reservation/{{$reservation->id}}/edit">
                                 <img width="15px" height="15px" src="{{ asset('svg/pencil.svg') }}">
                             </a>
