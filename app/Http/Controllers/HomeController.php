@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\City;
 use App\User;
 use App\Vehicle;
+use App\Reservation;
 
 class HomeController extends Controller
 {
@@ -31,6 +32,7 @@ class HomeController extends Controller
         $vehicles = Vehicle::all()->count();
         $seats = Vehicle::all()->sum('seats_number');
         $cities = City::all();
-        return view('home', compact('users','drivers','vehicles','seats','cities'));
+        $reservations = Reservation::where('user_id', auth()->user()->id)->count();
+        return view('home', compact('users','drivers','vehicles','seats','cities','reservations'));
     }
 }
