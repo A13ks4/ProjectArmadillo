@@ -57,12 +57,12 @@
                                     <span style="sb-show">Rezervisite voznju</span>
                                 </a>
                                 @endif
-                                @unless (Auth::user()->can('create', App\Vehicle::class))
+                                @if (Auth::user()->isClient())
                                 <a href="{{ url('/reservation') }}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/book.svg') }}">
                                     <span style="sb-show">Vase rezervacije</span>
                                 </a>
-                                @endunless
+                                @endif
                                 @if (Auth::user()->can('create', App\User::class))
                                 <a href="{{url('employees')}}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/employee.svg') }}">
@@ -81,7 +81,7 @@
                                     <span style="sb-show">Klijenti</span>
                                 </a>
                                 @endif
-                                @if (Auth::user()->can('create', App\Reservation::class))
+                                @if (Auth::user()->isAdmin() || Auth::user()->isDriver())
                                 <a href="{{url('/reservation')}}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/book.svg') }}">
                                     <span style="sb-show">Rezervacije</span>

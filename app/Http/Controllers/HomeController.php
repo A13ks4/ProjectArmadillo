@@ -7,6 +7,7 @@ use App\City;
 use App\User;
 use App\Vehicle;
 use App\Reservation;
+use App\Schedule;
 
 class HomeController extends Controller
 {
@@ -33,6 +34,7 @@ class HomeController extends Controller
         $seats = Vehicle::all()->sum('seats_number');
         $cities = City::all();
         $reservations = Reservation::where('user_id', auth()->user()->id)->count();
-        return view('home', compact('users','drivers','vehicles','seats','cities','reservations'));
+        $schedule = Schedule::where('driver_id', auth()->user()->id)->count();
+        return view('home', compact('users','drivers','vehicles','seats','cities','reservations', 'schedule'));
     }
 }
