@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Reservation;
 use App\Plan;
+use App\Schedule;
 
 
 class ReservationController extends Controller
@@ -149,8 +150,9 @@ class ReservationController extends Controller
     public function edit($id)
     {
         $reservation = Reservation::findOrFail($id);
+        $schedule = Schedule::where('plan_id', $reservation->plan_id)->get();
         $this->authorize('update',$reservation);
-        return view('reservation/reservationupdate',compact('reservation'));
+        return view('reservation/reservationupdate',compact('reservation', 'schedule'));
     }
 
     /**
