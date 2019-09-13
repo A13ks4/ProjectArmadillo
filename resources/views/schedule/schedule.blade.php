@@ -32,8 +32,10 @@
                         <ul class="navbar-nav mr-auto">
                             <span class="navbar-brand">Zaduzenja</span>
                         </ul>
+                        
                         <ul class="navbar-nav ml-auto">
                             @can('create', App\Schedule::class)
+                                <a href="{{ url('schedule/pdf') }}">Download PDF </a>
                                 <a href="/schedule/create" class="btn btn-primary">Novo zaduzenje</a>
                             @endcan
                         </ul>

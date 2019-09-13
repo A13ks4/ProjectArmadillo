@@ -32,7 +32,8 @@
                         <ul class="navbar-nav mr-auto">
                             <span class="navbar-brand">Rezervacije</span>
                         </ul>
-                        <a href="{{ url('reservation/pdf') }}">Download PDF</a>
+                        <a href="{{ url('reservation/pdf') }}">Download PDF </a>&nbsp; | &nbsp;
+                        <a href="{{ url('reservation/word') }}"> Download Word</a>
                     </nav>
                 </div>
                 <div class="card-body">
