@@ -17,9 +17,9 @@
                 width: 100vw;
             }
             html,body {
-                height:100%;
-                margin:0;
-                 
+                height: 100%;
+                margin: 0;
+                overflow-y: auto;
             }
             .column {
                 width: 50%;
@@ -35,11 +35,17 @@
                 background-position: right bottom;
                 float: right;
             }
+            @media (max-width: 820px) {
+                .column {
+                    width: 50%;
+                    height: 150%;
+                }
+            }
         </style>
     </head>
     <body>
         <div id="wrapper">
-            <div class="column left">
+            <div class="column left ">
                 @yield('content')
             </div>
             <div class="column right"></div>

@@ -1,6 +1,9 @@
 #sidebar {
     max-width: 220px;
     min-width: 220px;
+    display: block;
+    position: relative;
+    z-index: 1;
 }
 
 #sidebutton {
@@ -19,19 +22,12 @@
 
 @media (max-width: 900px) {
     #sidebar {
-        max-width: 70px;
-        min-width: 70px;
+        display: none;
+        position: absolute;
+        z-index: 1;
     }
     #sidebutton {
         display: block;
-    }
-    .sideitem {
-        display: none;
-    }
-    #logo {
-        width: 40px;
-        height: 50px;
-        margin-left: 10px;
     }
 }
 
@@ -39,12 +35,12 @@
     #sidebar {
         max-width: 100%;
         min-width: 100%;
+        display: block;
+        position: relative;
+        z-index: 1;
     }
     #sidebutton {
         display: none;
-    }
-    .sideitem {
-        display: inline-block;
     }
     #logo {
         width: 50px;

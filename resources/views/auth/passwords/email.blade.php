@@ -3,7 +3,7 @@
 @section('content')
 <div class="row my-5">
     <div id="col" class="col-md align-self-center">
-        <div class="col-sm-10 col-md-8 col-lg-6 mx-auto">
+        <div class="col-sm-10 col-md-10 col-lg-6 mx-auto">
             <div class="card card-signin my-5" >
                 <div class="card-body">
                     <h5 class="card-title text-center"><a href="{{ url('/') }}"><img width="60px" height="80px" src="{{ asset('img/logo.png') }}" alt="error"></a></h5>
