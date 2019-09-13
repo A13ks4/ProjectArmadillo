@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             StreetSeeder::class,
             VehicleSeeder::class,
-            
+            UsersSeeder::class,
             CitySeeder::class,
             PlanSeeder::class,
             
