@@ -8,14 +8,16 @@ $(function(){
         <th scope="col">Korisnik</th>
         <th scope="col">Startna lokacija</th>
         <th scope="col">Destinacija</th>
+        <th scope="col">Zaduzenje</th>
         <th scope="col"></th>
     </tr>
     @foreach($reservations as $reservation)
-        @can('view', $reservation)
+        @can('create', $reservation) <!-- admin ne vidi ako je 'view' -->
             <tr>
                 <td>{{$reservation->user->firstname}} {{$reservation->user->lastname}}</td>
                 <td>{{$reservation->plan->city_from->name}}, {{$reservation->start_location}}</td>
                 <td>{{$reservation->plan->city_to->name}}, {{$reservation->destination}}</td>
+                <td>@if($reservation->schedule_id == null) Nije rasporedjen @else {{$reservation->schedule->driver->firstname}} {{$reservation->schedule->driver->lastname}} @endif</td>
             @can('create', $reservation)
                 <td>
                     <div class="row">
