@@ -51,12 +51,12 @@
                                     <span style="sb-show">Planovi</span>
                                 </a>
                                 @endif
-                                @unless (Auth::user()->can('create', App\Plan::class))
+                                @can('see', App\Plan::class)
                                 <a href="{{ url('/plan') }}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/clock.svg') }}">
                                     <span style="sb-show">Rezervisite voznju</span>
                                 </a>
-                                @endunless
+                                @endcan
                                 @unless (Auth::user()->can('create', App\Vehicle::class))
                                 <a href="{{ url('/reservation') }}" class="list-group-item list-group-item-action bg-light">
                                     <img class="mr-2 mb-1" width="20px" height="20px" src="{{ asset('svg/book.svg') }}">
