@@ -98,7 +98,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        \Log::info(auth()->user()->firstname.' je napravio novu rezervaciju');
+        \Log::info(auth()->user()->firstname.' sa ID: '.auth()->user()->id.' je napravio novu rezervaciju');
         $data = $request->validate([
             'plan_id' => 'required',
             'start_location' => 'required',
@@ -112,7 +112,7 @@ class ReservationController extends Controller
         
         //Proverava da li postoji rezervacija sa id plana i id usera
         if(Reservation::where("plan_id",$data['plan_id'])->where("user_id",auth()->user()->id)->exists()){
-            \Log::warning(auth()->user()->firstname.' pokusao istu rezervaciju da napravi');
+            \Log::warning(auth()->user()->firstname.' sa ID: '.auth()->user()->id.' pokusao istu rezervaciju da napravi');
             return "<div class='alert-warning py-4 text-center'>Vec ste rezervisali!</div>";
         }
         

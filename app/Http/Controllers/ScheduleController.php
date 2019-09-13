@@ -30,6 +30,13 @@ class ScheduleController extends Controller
         return view('schedule/schedule',compact('schedules'));
     }
 
+    public function export_pdf(){
+        $schedules = Schedule::all();
+
+        $pdf = \PDF::loadView('schedule/pdf',compact('schedules'));
+        return $pdf->download("rezervacije.pdf");
+
+    } 
     /**
      * Show the form for creating a new resource.
      *
