@@ -32,28 +32,15 @@
                         <ul class="navbar-nav mr-auto">
                             <span class="navbar-brand">Rezervacije</span>
                         </ul>
-                        <a href="{{ url('reservation/pdf') }}">Download PDF </a>&nbsp; | &nbsp;
-                        <a href="{{ url('reservation/word') }}"> Download Word</a>
+                        @if(Auth::user()->isAdmin() || Auth::user()->isDriver())
+                            <a href="{{ url('reservation/pdf') }}">Download PDF </a>&nbsp; | &nbsp;
+                            <a href="{{ url('reservation/word') }}"> Download Word</a>
+                        @endif
                     </nav>
                 </div>
                 <div class="card-body">
                     <div class="results">
                         @include('reservation/reservationtable')
-                    </div>
-                    <div id="popup" class="modal container">
-                        <div class="modal-content animate">
-                            <div class="imgcontainer">
-                                <span onclick="document.getElementById('popup').style.display='none'" class="close" title="Close Modal">&times;</span>
-                                <img id="popupimg" width="280px" height="280px" src="" alt="none" class="rounded-circle">
-                            </div>
-                            <div class="container">
-                                <div class="text-center mb-4">
-                                    <h3 id="popupbrand"></h3>
-                                    <h5 id="popupmodel"></h2>
-                                </div>
-                                <button onclick="document.getElementById('popup').style.display='none'">Zatvori</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -61,12 +48,3 @@
     </div>
 </div>
 @endsection 
-<script>
-    var reservation;
-    function showpopup() {
-        document.getElementById('popup').style.display= 'block';
-        document.getElementById('popupimg').src = reservation.img;
-        document.getElementById('popupbrand').innerHTML = reservation.brand;
-        document.getElementById('popupmodel').innerHTML = reservation.model;
-    }
-</script>

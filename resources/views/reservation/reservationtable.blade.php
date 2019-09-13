@@ -57,8 +57,8 @@ $(function(){
                 <td>{{$reservation->plan->city_from->name}}, {{$reservation->start_location}}</td>
                 <td>{{$reservation->plan->city_to->name}}, {{$reservation->destination}}</td>
                 <td>{{$reservation->plan->date}} {{$reservation->plan->time_start}}</td>
-                <td>@if($reservation->schedule_id == null) Ceka se rasporedjivanje @else {{$reservation->schedule->vehicle->plate_number}} {{$reservation->schedule->vehicle->model}}  @endif</td>
-                <td>@if($reservation->schedule_id == null) Ceka se rasporedjivanje @else {{$reservation->schedule->driver->phone_number}} @endif</td>
+                <td>@if($reservation->schedule_id == null) <p class="text-danger">Čeka se rasporedjivanje</p> @else {{$reservation->schedule->vehicle->plate_number}} {{$reservation->schedule->vehicle->model}}  @endif</td>
+                <td>@if($reservation->schedule_id == null) <p class="text-danger">Čeka se rasporedjivanje</p> @else {{$reservation->schedule->driver->phone_number}} @endif</td>
             @can('create', $reservation)
                 <td>
                     <div class="row">
