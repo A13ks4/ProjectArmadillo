@@ -165,12 +165,16 @@ class ReservationController extends Controller
         $data = $request->validate([           
             'destination' => 'required',
             'start_location' => 'required',
+            'schedule_id' => '',
         ]);
 
         $reservation = Reservation::findOrFail($id);
         $reservation->user_id = auth()->user()->id;
         $reservation->destination = $data['destination'];
-        $reservation->start_location = $data['start_location'];     
+        $reservation->start_location = $data['start_location'];
+        if($request->has('schedule_id')){
+            $reservation->schedule_id = $data['schedule_id'];
+        }
         $reservation->save();
         return redirect('reservation');
     }
