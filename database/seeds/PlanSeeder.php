@@ -12,6 +12,6 @@ class PlanSeeder extends Seeder
     public function run()
     {
         factory(App\Plan::class, 5)->create();
-        factory(App\User::class,7)->create();
+        
     }
 }
