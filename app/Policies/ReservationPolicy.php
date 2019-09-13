@@ -50,7 +50,7 @@ class ReservationPolicy
      */
     public function update(User $user, Reservation $reservation)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->id == $reservation->user_id;
     }
 
     /**
