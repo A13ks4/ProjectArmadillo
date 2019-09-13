@@ -41,6 +41,10 @@ class PlanPolicy
         return $user->isAdmin();
     }
 
+    public function see(User $user)
+    {
+        return $user->isClient();
+    }
     /**
      * Determine whether the user can update the plan.
      *
