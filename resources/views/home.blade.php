@@ -2,79 +2,109 @@
 
 @section('content')
 <div class="container-fluid">
-@if (Auth::user()->isAdmin())
-    <div class="row mb-4">
-        <div class="col-md-8 col-lg-6">
-            <div class="card">
-                <div class="card-header">Stanje</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <span>Reg. klijenata:
-                            <h2>{{$users}}</h2>
+    @if (Auth::user()->isAdmin())
+        <div class="row mb-4">
+            <div class="col-md-8 col-lg-6">
+                <div class="card">
+                    <div class="card-header">Stanje</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <span>Reg. klijenata:
+                                <h2>{{$users}}</h2>
+                            </div>
+                            <div class="col">
+                                <span>Broj zaposlenih:</span>
+                                <h2>{{$drivers}}</h2>
+                            </div>
+                            <div class="col">
+                                <span>Broj vozila:</span>
+                                <h2>{{$vehicles}}</h2>
+                            </div>
+                            <div class="col">
+                                <span>Ukupno sedišta:</span>
+                                <h2>{{$seats}}</h2>
+                            </div>
                         </div>
-                        <div class="col">
-                            <span>Broj zaposlenih:</span>
-                            <h2>{{$drivers}}</h2>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Usluga dostupna u {{$cities->count()}} gradova.</div>
+                    <div class="card-body">
+                        <?php $i = 0; ?>
+                        @foreach($cities as $city)
+                            {{++$i}}. {{$city->name}} <br>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if (Auth::user()->isClient())
+        <div class="row mb-4">
+            <div class="col-md-8 col-lg-6">
+                <div class="card">
+                    <div class="card-header">Stanje</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <span>Br. vaših rezervacija:</span>
+                                <h2>{{$reservations}}</h2>
+                            </div>
                         </div>
-                        <div class="col">
-                            <span>Broj vozila:</span>
-                            <h2>{{$vehicles}}</h2>
-                        </div>
-                        <div class="col">
-                            <span>Ukupno sedišta:</span>
-                            <h2>{{$seats}}</h2>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Usluga dostupna u {{$cities->count()}} gradova.</div>
+                    <div class="card-body">
+                        <?php $i = 0; ?>
+                        @foreach($cities as $city)
+                            {{++$i}}. {{$city->name}} <br>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if (Auth::user()->isDriver())
+        <div class="row mb-4">
+            <div class="col-md-8 col-lg-6">
+                <div class="card">
+                    <div class="card-header">Stanje</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <span>Br. obaveza do sada:</span>
+                                <h2>{{$schedule}}</h2>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">Usluga dostupna u {{$cities->count()}} gradova.</div>
-                <div class="card-body">
-                    <?php $i = 0; ?>
-                    @foreach($cities as $city)
-                        {{++$i}}. {{$city->name}} <br>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-@endif
-@if (Auth::user()->isClient())
-    <div class="row mb-4">
-        <div class="col-md-8 col-lg-6">
-            <div class="card">
-                <div class="card-header">Stanje</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <span>Br. vaših rezervacija:</span>
-                            <h2>{{$reservations}}</h2>
-                        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Usluga dostupna u {{$cities->count()}} gradova.</div>
+                    <div class="card-body">
+                        <?php $i = 0; ?>
+                        @foreach($cities as $city)
+                            {{++$i}}. {{$city->name}} <br>
+                        @endforeach
                     </div>
                 </div>
             </div>
-            
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">Usluga dostupna u {{$cities->count()}} gradova.</div>
-                <div class="card-body">
-                    <?php $i = 0; ?>
-                    @foreach($cities as $city)
-                        {{++$i}}. {{$city->name}} <br>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-@endif
+    @endif
 </div>
 @endsection
