@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Reservation;
 use App\Plan;
 use App\Schedule;
-
+use App\User;
 
 class ReservationController extends Controller
 {
@@ -150,9 +150,11 @@ class ReservationController extends Controller
     public function edit($id)
     {
         $reservation = Reservation::findOrFail($id);
-        $schedule = Schedule::where('plan_id', $reservation->plan_id)->get();
+        // Zaduzenja gde je plan_id = reservation->plan_id ok
+        // ali treba da se prebroji [broj rezervacija za plan < od broja sedista auto koja vozi driver] hahahahahahah ovo je ludo mi smo ludi
+        $schedules = Schedule::where('plan_id', $reservation->plan_id)->get();
         $this->authorize('update',$reservation);
-        return view('reservation/reservationupdate',compact('reservation', 'schedule'));
+        return view('reservation/reservationupdate', compact('reservation', 'schedules'));
     }
 
     /**
@@ -171,7 +173,6 @@ class ReservationController extends Controller
         ]);
 
         $reservation = Reservation::findOrFail($id);
-        $reservation->user_id = auth()->user()->id;
         $reservation->destination = $data['destination'];
         $reservation->start_location = $data['start_location'];
         if($request->has('schedule_id')){

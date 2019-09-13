@@ -22,9 +22,9 @@ class ReservationPolicy
     public function view(User $user, Reservation $reservation)
     {
         if($reservation->schedule != null){
-            return $user->id == $reservation->user_id || $user->id == $reservation->schedule->driver->id;
+            return $user->id == $reservation->user_id || $user->id == $reservation->schedule->driver->id || $user->isAdmin();
         }else
-            return $user->id == $reservation->user_id; // Prikazuje samo rezervacije od trenutno logovanog usera
+            return $user->id == $reservation->user_id || $user->isAdmin(); // Prikazuje samo rezervacije od trenutno logovanog usera
     }
 
     public function create(User $user)

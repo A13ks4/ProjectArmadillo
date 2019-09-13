@@ -5,13 +5,18 @@
     <div class="row">
         <div class="col-lg-5 col-md-8">
             <div class="card">
-                <div class="card-header">Izmena zaduzenja</div>
+                <div class="card-header">Izmena rezervacija</div>
                 <div class="card-body">
                     <form action="/reservation/{{$reservation->id}}" method="POST">
                     @csrf
                     @method("PATCH")
-                    <span>Od:</span> <br>
-                        
+                        <span>Zaduzen:</span> <br>
+                        <select class="form-control" name="schedule_id" id="schedule_id">
+                            @foreach($schedules as $schedule)
+                                <option value="{{$schedule->id}}">{{$schedule->driver->firstname}} {{$schedule->driver->lastname}}</option>
+                            @endforeach
+                        </select><br>
+                        <span>Od:</span> <br>
                         <input type="text" class="form-control" value="{{ $reservation->plan->city_from->name }}" readonly><br>
                         <span>Polazna ulica:</span> <br>
                         <select class="form-control" name="start_location" id="start_location">
