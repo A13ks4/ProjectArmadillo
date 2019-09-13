@@ -3,7 +3,7 @@ $(function(){
     Pagnation();
 })
 </script>
-<table class="table table-striped table-hover table-responsive">
+<table class="table table-striped table-hover">
     <tr>
         <th scope="col">#id</th>
         <th scope="col">Ime i prezime</th>
